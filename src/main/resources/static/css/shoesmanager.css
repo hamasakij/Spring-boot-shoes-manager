@@ -1,0 +1,96 @@
+@charset "UTF-8";
+
+.th-width {
+	width: 1px;
+	white-space: nowrap;
+}
+
+.right-column {
+	padding: 10%;
+}
+
+.btn {
+	text-align: right;
+	clear: both;
+}
+
+.ui search {
+	float: left;
+}
+
+.content ui container main-content {
+	margin-top: 30%;
+	padding-top: 70px;
+}
+
+.button {
+	display: flex;
+	justify-content: center;
+}
+
+.price {
+	display: flex;
+}
+
+.image {
+	display: flex;
+	justify-content: center;
+}
+
+th.action {
+	width: 180px;
+}
+
+.login {
+	text-align: center;
+	padding: 20px 0;
+}
+
+.login-form {
+	max-width: 330px;
+	padding: 40px;
+	margin: auto;
+}
+
+.place {
+	padding: 10px 5px 0 5px;
+}
+
+.field {
+	margin: 5px;
+	display: -webkit-flex;
+	display: flex;
+}
+
+.title {
+	margin: 5px;
+}
+
+label {
+	margin-left: 5px;
+	margin-right: 10px;
+	display: inline-block;
+	width: 130px;
+}
+
+.search-box {
+	display: inline;
+	width: auto;
+	height: 50px;
+}
+
+input[type="file"][name="thumbnail_file"] {
+	display: none;
+}
+
+select.ui.search.dropdown {
+	width: 220px;
+}
+
+input.prompt {
+	width: 220px;
+}
+
+.second {
+	padding-left: 5px;
+}

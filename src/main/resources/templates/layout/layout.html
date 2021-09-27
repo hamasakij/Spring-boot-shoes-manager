@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" lang="ja">
+<head>
+<meta charset="UTF-8"></meta>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+<link rel="stylesheet"
+	th:href="@{/webjars/Semantic-UI/2.4.1/semantic.css}">
+<link rel="stylesheet" th:href="@{/css/shoesmanager.css}">
+<title></title>
+</head>
+<body>
+	<div class="ui fixed inverted menu admin-menu">
+		<div class="ui container">
+			<a href="" class="header item title"> <span
+				class="menu-main-title">在庫管理システム</span>
+			</a>
+			<div class="ui secondary menu">
+				<a class="item" th:href="@{/zaiko/index.html}">在庫一覧</a> <a
+					class="item" th:href="@{/nyuuko/index.html}">入庫登録</a> <a
+					class="item" th:href="@{/syukko/index.html}">出庫登録</a> <a
+					class="item" th:href="@{/master/product.html}">商品マスタ</a> <a
+					class="item" th:href="@{/master/category.html}">カテゴリマスタ</a> <a
+					class="item" th:href="@{/master/maker.html}">メーカー</a> <a
+					class="item" th:href="@{/admin/userList.html}">管理者</a>
+			</div>
+		</div>
+		<div class="mark">
+			<button class="ui inverted black button"
+				onclick="location.href='/user/login.html'">ログアウト
+			</button>
+		</div>
+	</div>
+	<!--Content-->
+	<div class="m-padded-tb-large m-container-small main-content">
+		<th:block layout:fragment="layout-content">
+			<p>Default layout content</p>
+		</th:block>
+		<!-- ajax success modal -->
+		<!-- 		<th:block -->
+		<!-- 			th:replace="admin/components/common/ajax_success_modal :: ajax_success_modal"> -->
+		<!-- 		</th:block> -->
+		<!-- ajax error modal -->
+		<!-- 		<th:block -->
+		<!-- 			th:replace="admin/components/common/ajax_err_modal :: ajax-err-modal"> -->
+		<!-- 		</th:block> -->
+	</div>
+	<th:block th:fragment="script">
+		<script th:src="@{/webjars/jquery/3.6.0/jquery.js}"></script>
+		<script th:src="@{/webjars/Semantic-UI/2.4.1/semantic.js}"></script>
+		<script th:src="@{/js/shoesmanager.js}"></script>
+	</th:block>
+</body>
+</html>

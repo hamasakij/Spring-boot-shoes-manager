@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout/layout}">
+<head>
+<title>商品マスタ</title>
+</head>
+<!--main-->
+<th:block layout:fragment="layout-content">
+	<div class="right-column">
+		<h3>商品マスタ検索</h3>
+		<div class="ui segment">
+			<form id="user-search-form" method="post" action=""
+				class="form-inline" object="">
+				<!--カテゴリ-->
+				<div class="field">
+					<div class="first">
+						<label>カテゴリ</label>
+						<div class="ui icon input">
+							<select class="ui search dropdown">
+								<option value="">カテゴリを選択してください</option>
+								<option value="">1</option>
+								<option value="">2</option>
+								<option value="">3</option>
+								<option value="">4</option>
+								<option value="">5</option>
+								<option value="">6</option>
+								<option value="">7</option>
+							</select>
+						</div>
+					</div>
+					<!--メーカー-->
+					<div class="second">
+						<label>メーカー</label>
+						<div class="ui icon input">
+							<select class="ui search dropdown">
+								<option value="">メーカーを選択してください</option>
+								<option value="">1</option>
+								<option value="">2</option>
+								<option value="">3</option>
+								<option value="">4</option>
+								<option value="">5</option>
+								<option value="">6</option>
+								<option value="">7</option>
+							</select>
+						</div>
+					</div>
+				</div>
+				<!--色-->
+				<div class="field">
+					<div class="first">
+						<label>カラー</label>
+						<div class="ui icon input">
+							<select class="ui search dropdown">
+								<option value="">カラーを選択してください</option>
+								<option value="">1</option>
+								<option value="">2</option>
+								<option value="">3</option>
+								<option value="">4</option>
+								<option value="">5</option>
+								<option value="">6</option>
+								<option value="">7</option>
+							</select>
+						</div>
+					</div>
+					<!--サイズ-->
+					<div class="second">
+						<label>サイズ</label>
+						<div class="ui icon input">
+							<select class="ui search dropdown">
+								<option value="">サイズを選択してください</option>
+								<option value="">1</option>
+								<option value="">2</option>
+								<option value="">3</option>
+								<option value="">4</option>
+								<option value="">5</option>
+								<option value="">6</option>
+								<option value="">7</option>
+							</select>
+						</div>
+					</div>
+				</div>
+				<!--商品コード-->
+				<div class="field">
+					<div class="first">
+						<label>商品コード</label>
+						<div class="ui input">
+							<input class="prompt" type="text" placeholder="商品コード..." />
+						</div>
+					</div>
+					<!--商品名-->
+					<div class="second">
+						<label>商品名</label>
+						<div class="ui input">
+							<input class="prompt" type="text" placeholder="商品名..." />
+						</div>
+					</div>
+				</div>
+				<!--値段-->
+				<div class="field">
+					<div class="first">
+						<label>金額</label>
+						<div class="ui right labeled input">
+							<input type="text" placeholder="金額" />
+							<div class="ui basic label">円以上</div>
+							<div class="place">～</div>
+							<input type="text" placeholder="金額" />
+							<div class="ui basic label">円未満</div>
+						</div>
+					</div>
+				</div>
+				<div class="btn">
+					<button class="ui inverted green button" type="submit">
+						検索</button>
+				</div>
+			</form>
+		</div>
+		<!-- 一覧表示 -->
+		<h3>商品一覧</h3>
+		<div class="ui segment">
+			<div class="btn">
+				<button class="ui button green new-entry" tabindex="0"
+					data-ol-has-click-handler=""
+					onclick="location.href='/sinki/index.html'">新規登録</button>
+			</div>
+			<table class="ui celled table">
+				<thead>
+					<tr>
+						<th class="width">商品ID/商品コード/商品名/カラー/サイズ</th>
+						<th class="width">カテゴリ名</th>
+						<th class="width">メーカー</th>
+						<th class="width">値段</th>
+						<th class="width">備考</th>
+						<th class="action"></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td data-label="">1111</td>
+						<td data-label="">1111</td>
+						<td data-label="">1111</td>
+						<td data-label="">1111</td>
+						<td data-label="">1111111111111</td>
+						<td class="btn">
+							<button class="ui inverted red button">削除</button>
+							<button class="ui inverted blue button"
+								onclick="location.href='/syousai/index.html'">詳細</button>
+						</td>
+					</tr>
+					<tr>
+						<td data-label="">2222</td>
+						<td data-label="">2222</td>
+						<td data-label="">2222</td>
+						<td data-label="">2222</td>
+						<td data-label="">2222</td>
+						<td class="btn">
+							<button class="ui inverted red button">削除</button>
+							<button class="ui inverted blue button"
+								onclick="location.href='/syousai/index.html'">詳細</button>
+						</td>
+					</tr>
+					<tr>
+						<td data-label="">3333</td>
+						<td data-label="">3333</td>
+						<td data-label="">3333</td>
+						<td data-label="">3333</td>
+						<td data-label="">3333</td>
+						<td class="btn">
+							<button class="ui inverted red button">削除</button>
+							<button class="ui inverted blue button"
+								onclick="location.href='/syousai/index.html'">詳細</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</th:block>
+</html>

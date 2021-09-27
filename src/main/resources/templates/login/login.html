@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"></meta>
+<link rel="stylesheet"
+	th:href="@{/webjars/Semantic-UI/2.4.1/semantic.css}">
+<link rel="stylesheet" th:href="@{/css/shoesmanager.css}">
+<title>ログイン</title>
+</head>
+<body>
+	<div class="text-center">
+		<!--ヘッダー-->
+		<div class="ui fixed inverted menu admin-menu">
+			<div class="ui container">
+				<a href="" class="header item title"> <span
+					class="menu-main-title">在庫管理システム</span>
+				</a>
+			</div>
+		</div>
+		<div class="right-column">
+			<h3>ログイン</h3>
+			<div class="ui segment">
+				<!--入力フォーム-->
+				<div class="login">
+					<form id="user-search-form" method="post" th:action=""
+						class="login-form" th:object="">
+						<!--ID-->
+						<div class="title">
+							<label for="userId">ユーザーID</label>
+							<div class="ui input">
+								<input type="text" placeholder="ID" />
+							</div>
+						</div>
+						<!--パスワード-->
+						<div class="title">
+							<label for="password">パスワード</label>
+							<div class="ui input">
+								<input type="text" placeholder="パスワード" />
+							</div>
+						</div>
+						<!--ログインボタン-->
+						<button class="ui button" data-ol-has-click-handler="">
+							ログイン</button>
+					</form>
+				</div>
+				<div class="button">
+					<a class="ui button mini green thumbnail-add" tabindex="0"
+						href="/user/signup.html">新規登録はこちら</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"/>
+<link rel="stylesheet"
+	th:href="@{/webjars/Semantic-UI/2.4.1/semantic.css}">
+<link rel="stylesheet" th:href="@{/css/shoesmanager.css}">
+<title>新規登録</title>
+</head>
+<body>
+	<div class="text-center">
+		<!--ヘッダー-->
+		<div class="ui fixed inverted menu admin-menu">
+			<div class="ui container">
+				<a href="" class="header item title"> <span
+					class="menu-main-title">在庫管理システム</span>
+				</a>
+			</div>
+		</div>
+		<div class="right-column">
+			<h3>利用者登録</h3>
+			<div class="ui segment">
+				<!--入力フォーム-->
+				<div class="login">
+					<form id="user-signup-form" method="post" th:action=""
+						class="signup-form" th:object="">
+						<!-- ユーザーID -->
+						<div class="title">
+							<label for="userId">ユーザーID</label>
+							<div class="ui input">
+								<input type="text" placeholder="ユーザーID" />
+							</div>
+						</div>
+						<!-- パスワード -->
+						<div class="title">
+							<label for="password">パスワード</label>
+							<div class="ui input">
+								<input type="text" placeholder="パスワード" />
+							</div>
+						</div>
+						<!-- ユーザー名 -->
+						<div class="title">
+							<label for="userName">ユーザー名</label>
+							<div class="ui input">
+								<input type="text" placeholder="ユーザー名" />
+							</div>
+						</div>
+						<!-- 誕生日 -->
+						<div class="title">
+							<label for="birthday"> 生年月日 </label>
+							<div class="ui input">
+								<input type="text" placeholder="yyyy/mm/dd" />
+							</div>
+						</div>
+						<!-- 性別 -->
+						<div class="title">
+							<label for="gender">性別</label>
+							<div class="checkbox">
+								<div class="button">
+									<label><input type="checkbox" name="example" />女性</label> <label><input
+										type="checkbox" name="example" />男性</label>
+								</div>
+							</div>
+						</div>
+						<!--登録ボタン-->
+						<button class="ui button" data-ol-has-click-handler="">
+							登録</button>
+					</form>
+				</div>
+				<div class="button">
+					<a class="ui button mini green thumbnail-add" tabindex="0"
+						href="/user/login.html">ログイン画面はこちら</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>
