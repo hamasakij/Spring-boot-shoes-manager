@@ -1,4 +1,4 @@
-package com.coltware.spring.log;
+package com.coltware.spring.aspect;
 
 import java.util.Arrays;
 
@@ -32,7 +32,7 @@ public class LogAspect {
      * Pointcut式 execution(戻り値 パッケージ.クラス.メソッド(引数))
      * @param joinPoint
      */
-    @Before("execution(* com.coltware.spring.controller.*.*Controller.*(..))")
+    @Before("execution(* com.coltware.spring.controller.*Controller.*(..))")
     public void doBeforeController(JoinPoint joinPoint){
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = attributes.getRequest();
