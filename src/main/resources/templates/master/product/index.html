@@ -1,8 +1,7 @@
 <!DOCTYPE html>
-<html
-        xmlns:th="http://www.thymeleaf.org"
-        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-        layout:decorate="~{layout/layout}">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/layout}">
 <head>
 <title>商品マスタ</title>
 </head>
@@ -111,8 +110,7 @@
 					</div>
 				</div>
 				<div class="btn">
-					<button class="ui inverted green button" type="submit">
-						検索</button>
+					<button class="ui inverted green button" type="submit">検索</button>
 				</div>
 			</form>
 		</div>
@@ -136,40 +134,19 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td data-label="">1111</td>
-						<td data-label="">1111</td>
-						<td data-label="">1111</td>
-						<td data-label="">1111</td>
-						<td data-label="">1111111111111</td>
+					<tr th:each="product : ${products}">
+						<td th:text="${product.productId}/${product.productCode}/${product.name}/${product.colorId}/${product.sizeId}"></td>
+						<td th:text="${product.categoryId}"></td>
+						<td th:text="${product.makerId}"></td>
+						<td th:text="${product.price}"></td>
+						<td th:text="${product.remarks}"></td>
 						<td class="btn">
-							<button class="ui inverted red button">削除</button>
+							<button class="ui inverted red button" th:data-id="${prodcut.id}"
+								tabindex="0">詳細</button>
 							<button class="ui inverted blue button"
-								onclick="location.href='/syousai/index.html'">詳細</button>
-						</td>
-					</tr>
-					<tr>
-						<td data-label="">2222</td>
-						<td data-label="">2222</td>
-						<td data-label="">2222</td>
-						<td data-label="">2222</td>
-						<td data-label="">2222</td>
-						<td class="btn">
-							<button class="ui inverted red button">削除</button>
-							<button class="ui inverted blue button"
-								onclick="location.href='/syousai/index.html'">詳細</button>
-						</td>
-					</tr>
-					<tr>
-						<td data-label="">3333</td>
-						<td data-label="">3333</td>
-						<td data-label="">3333</td>
-						<td data-label="">3333</td>
-						<td data-label="">3333</td>
-						<td class="btn">
-							<button class="ui inverted red button">削除</button>
-							<button class="ui inverted blue button"
-								onclick="location.href='/syousai/index.html'">詳細</button>
+								th:data-id="${product.id}"
+								th:data-url="@{/master/product/} +  ${product.id} + '/delete'"
+								tabindex="0">削除</button>
 						</td>
 					</tr>
 				</tbody>

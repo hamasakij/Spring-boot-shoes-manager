@@ -108,4 +108,4 @@ public class BaseModel implements Serializable{
         this.setDeletedAt(now);
     }
 }
-}
+
