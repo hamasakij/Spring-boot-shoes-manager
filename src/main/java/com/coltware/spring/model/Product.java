@@ -1,143 +1,118 @@
 package com.coltware.spring.model;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import lombok.Data;
 
+@Data
 @Entity
-@Table(name="product_master")
+@Table(name = "product_master")
 public class Product extends BaseModel {
 
 	@Id
-	@GeneratedValue
-	//商品ID
-	private Integer productId;
-	//カテゴリID
-	private Integer categoryId;
-	//商品コード
-	private Integer productCode;
-	//メーカーID
-	private Integer makerId;
-	//商品名
-	private String productName;
-	//カラーID
-	private Integer colorId;
-	//サイズID
-	private Integer sizeId;
-	//値段
-	private Integer price;
-	//備考
-	private String remarks;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	/**
+	 * 商品ID
+	 * 
+	 */
+	private Long productId;
 	
-	/** 商品IDを返す
-	 * @return
+	/**
+	 * カテゴリID
+	 * 
 	 */
-	public Integer getProductId() {
-		return productId;
-	}
-	/**商品IDを設定する
-	 * @param productId
+	@Column(name = "category_id")
+	private Long categoryId;
+	
+	/**
+	 * 商品コード
+	 * 
 	 */
-	public void setProductId(Integer productId) {
-		this.productId = productId;
-	}
-	/**カテゴリIDを返す
-	 * @return
+	private Long productCode;
+	
+	/**
+	 * メーカーID
+	 * 
 	 */
-	public Integer getCategoryId() {
-		return categoryId;
-	}
-	/**カテゴリIDを設定する
-	 * @param categoryId
+	@Column(name = "maker_id")
+	private Long makerId;
+	
+	/**
+	 * 商品名
+	 * 
 	 */
-	public void setCategoryID(Integer categoryId) {
-		this.categoryId = categoryId;
-	}
-	/**商品コードを取得する
-	 * @return
+	private String productName;
+	
+	/**
+	 * カラーID
+	 * 
 	 */
-	public Integer getProductCode() {
-		return productCode;
-	}
-	/**商品コードを設定する
-	 * @param productCode
+	@Column(name = "color_id")
+	private Long colorId;
+	
+	/**
+	 * サイズID
+	 * 
 	 */
-	public void setProductCode(Integer productCode) {
-		this.productCode = productCode;
-	}
-	/**メーカーIDを取得する
-	 * @return
+	@Column(name = "size_id")
+	private Long sizeId;
+	
+	/**
+	 * 値段
+	 * 
 	 */
-	public Integer getMakerId() {
-		return makerId;
-	}
-	/**メーカーIDを設定する
-	 * @param makerId
+	private Long price;
+	
+	/**
+	 * 備考
+	 * 
 	 */
-	public void setMakerId(Integer makerId) {
-		this.makerId = makerId;
-	}
-	/**商品名を取得する
-	 * @return
-	 */
-	public String getProductName() {
-		return productName;
-	}
-	/**商品名を設定する
-	 * @param productName
-	 */
-	public void setProductName(String productName) {
-		this.productName = productName;
-	}
-	/**カラーIDを取得する
-	 * @return
-	 */
-	public Integer getColorId() {
-		return colorId;
-	}
-	/**カラーIDを設定する
-	 * @param colorId
-	 */
-	public void setColorId(Integer colorId) {
-		this.colorId = colorId;
-	}
-	/**サイズIDを取得する
-	 * @return
-	 */
-	public Integer getSizeId() {
-		return sizeId;
-	}
-	/**サイズIDを設定する
-	 * @param sizeId
-	 */
-	public void setSizeId(Integer sizeId) {
-		this.sizeId = sizeId;
-	}
-	/**値段を取得する
-	 * @return
-	 */
-	public Integer getPrice() {
-		return price;
-	}
-	/**値段を設定する
-	 * @param price
-	 */
-	public void setPrice(Integer price) {
-		this.price = price;
-	}
-	/**備考を取得する
-	 * @return
-	 */
-	public String getRemarks() {
-		return  remarks;
-	}
-	/**備考を設定する
-	 * @param remarks
-	 */
-	public void setRemarks(String remarks) {
-		this.remarks = remarks;
-	}
-}
+	private String remarks;
 
+	/**
+	 * サイズ
+	 * 
+	 */
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "size_id", insertable = false, updatable = false)
+	private Size size;
+	
+	/**
+	 * カラー
+	 * 
+	 */
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "color_id", insertable = false, updatable = false)
+	private Color color;
+	
+	/**
+	 * カテゴリ
+	 * 
+	 */
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "category_id", insertable = false, updatable = false)
+	private Category category;
+	
+	/**
+	 * メーカー
+	 * 
+	 */
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "maker_id", insertable = false, updatable = false)
+	private Maker maker;
+	
+	/**
+     * サムネイル
+     */
+    private String thumbnail;
+
+	
+}

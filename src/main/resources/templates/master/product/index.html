@@ -10,8 +10,8 @@
 	<div class="right-column">
 		<h3>商品マスタ検索</h3>
 		<div class="ui segment">
-			<form id="user-search-form" method="post" action=""
-				class="form-inline" object="">
+			<form id="user-search-form" th:action="@{/master/product/}"
+				class="form-inline" th:object="${productSearchForm}">
 				<!--カテゴリ-->
 				<div class="field">
 					<div class="first">
@@ -120,7 +120,7 @@
 			<div class="btn">
 				<button class="ui button green new-entry" tabindex="0"
 					data-ol-has-click-handler=""
-					onclick="location.href='/sinki/index.html'">新規登録</button>
+					onclick="location.href='/product/create'">新規登録</button>
 			</div>
 			<table class="ui celled table">
 				<thead>
@@ -135,23 +135,23 @@
 				</thead>
 				<tbody>
 					<tr th:each="product : ${products}">
-						<td th:text="${product.productId}/${product.productCode}/${product.name}/${product.colorId}/${product.sizeId}"></td>
-						<td th:text="${product.categoryId}"></td>
-						<td th:text="${product.makerId}"></td>
+						<td th:text="${product.productInfo}"></td>
+						<td th:text="${product.category.categoryName}"></td>
+						<td th:text="${product.maker.makerName}"></td>
 						<td th:text="${product.price}"></td>
 						<td th:text="${product.remarks}"></td>
 						<td class="btn">
-							<button class="ui inverted red button" th:data-id="${prodcut.id}"
-								tabindex="0">詳細</button>
-							<button class="ui inverted blue button"
-								th:data-id="${product.id}"
-								th:data-url="@{/master/product/} +  ${product.id} + '/delete'"
-								tabindex="0">削除</button>
+							<button class="ui inverted red button">詳細</button>
+							<button class="ui inverted yellow button">更新</button>
+							<button class="ui inverted blue button delete-entry" th:data-id="${product.productId}" th:data-url="@{/master/product/} +  ${product.productId} + '/delete'" tabindex="0">削除</button>
 						</td>
 					</tr>
 				</tbody>
 			</table>
 		</div>
 	</div>
+	<!-- modal include -->
+    <th:block th:replace="components/delete_modal :: components_delete_modal">
+    </th:block>
 </th:block>
 </html>

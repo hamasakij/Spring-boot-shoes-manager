@@ -6,30 +6,54 @@ import lombok.Data;
 
 public class ProductForm {
 
-	//商品ID
-	private Integer productId;
+	/**
+	 * 商品ID
+	 */
+	private Long productId;
 	
-	//カテゴリID
-	private Integer categoryId;
+	/**
+	 * カテゴリID
+	 */
+	private Long categoryId;
 	
-	//商品コード
-	private Integer productCode;
+	/**
+	 * 商品コード
+	 */
+	private Long productCode;
 	
-	//メーカーID
-	private Integer makerId;
+	/**
+	 * メーカーID
+	 */
+	private Long makerId;
 	
-	//商品名
+	/**
+	 * 商品名
+	 */
 	private String productName;
 	
-	//カラーID
-	private Integer colorId;
+	/**
+	 * カラーID
+	 */
+	private Long colorId;
 	
-	//サイズID
-	private Integer sizeId;
+	/**
+	 * サイズID
+	 */
+	private Long sizeId;
 	
-	//値段
-	private Integer price;
+	/**
+	 * 値段
+	 */
+	private Long price;
 	
-	//備考
+	/**
+	 * 備考
+	 */
 	private String remarks;
+	
+	/**
+     * サムネイル
+     */
+//    @Size(max=255)
+    private String thumbnail;
 }
