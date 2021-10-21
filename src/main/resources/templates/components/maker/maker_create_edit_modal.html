@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div class="ui mini modal transition create-modal edit-modal"
+	th:fragment="components_maker_create_edit_modal">
+	<div class="header">メーカー新規作成</div>
+	<div class="content">
+		<form method="post" th:action="@{/master/maker/create}"
+			th:object="${makerForm}" class="ui form maker-create-edit-form">
+			<input type="hidden" name="makerId">
+			<div class="field">
+				<label class="label-name">新規メーカー名</label>
+				<div class="first">
+					<div class="field name">
+						<input type="text" placeholder="メーカー名"th:field="*{makerName}">
+					</div>
+					<div class="ui pointing red basic label hidden makerName"></div>
+				</div>
+			</div>
+		</form>
+	</div>
+	<div class="actions">
+		<div class="ui negative button">キャンセル</div>
+		<div
+			class="ui positive right labeled icon button maker-create-edit-ok-btn"
+			tabindex="0">
+			OK <i class="checkmark icon"></i>
+		</div>
+	</div>
+</div>
+</html>

@@ -19,10 +19,10 @@
 				<a class="item" th:href="@{/zaiko/index.html}">在庫一覧</a> <a
 					class="item" th:href="@{/nyuuko/index.html}">入庫登録</a> <a
 					class="item" th:href="@{/syukko/index.html}">出庫登録</a> <a
-					class="item" th:href="@{/master/product.html}">商品マスタ</a> <a
-					class="item" th:href="@{/master/category.html}">カテゴリマスタ</a> <a
-					class="item" th:href="@{/master/maker.html}">メーカー</a> <a
-					class="item" th:href="@{/admin/userList.html}">管理者</a>
+					class="item" th:href="@{/master/product}">商品マスタ</a> <a class="item"
+					th:href="@{/master/category}">カテゴリマスタ</a> <a class="item"
+					th:href="@{/master/maker}">メーカー</a> <a class="item"
+					th:href="@{/admin/userList.html}">管理者</a>
 			</div>
 		</div>
 		<div class="mark">
@@ -36,13 +36,13 @@
 			<p>Default layout content</p>
 		</th:block>
 		<!-- ajax success modal -->
-		<!-- 		<th:block -->
-		<!-- 			th:replace="admin/components/common/ajax_success_modal :: ajax_success_modal"> -->
-		<!-- 		</th:block> -->
+		<th:block
+			th:replace="/components/ajax_success_modal :: ajax_success_modal">
+		</th:block>
 		<!-- ajax error modal -->
-		<!-- 		<th:block -->
-		<!-- 			th:replace="admin/components/common/ajax_err_modal :: ajax-err-modal"> -->
-		<!-- 		</th:block> -->
+		<th:block
+			th:replace="/components/ajax_err_modal :: ajax-err-modal">
+		</th:block>
 	</div>
 	<th:block th:fragment="script">
 		<script th:src="@{/webjars/jquery/3.6.0/jquery.js}"></script>

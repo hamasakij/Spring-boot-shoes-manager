@@ -19,8 +19,14 @@ public class Maker extends BaseModel{
 	 * 
 	 */
 	private Long makerId;
+	
 	/**メーカー名
 	 * 
 	 */
 	private String makerName;
+	
+	/**
+	 * 削除
+	 */
+	private Boolean deleted;
 }

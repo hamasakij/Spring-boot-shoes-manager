@@ -94,3 +94,30 @@ input.prompt {
 .second {
 	padding-left: 5px;
 }
+
+.ui.red.message.priceError {
+	margin-left: 150px;
+	padding:5px;
+	margin-top:10px;
+}
+
+.ui.red.message.nameError {
+	margin-left: 150px;
+	padding:5px;
+	margin-top:10px;
+}
+
+.ui.red.message.codeError {
+	margin-left:150px;
+	padding:5px;
+	margin-top:10px;
+}
+.ui.error.message{
+	display:none;
+}
+.remarks{
+	padding-top:10px;
+}
+.label-name{
+	margin-top: 10px;
+}

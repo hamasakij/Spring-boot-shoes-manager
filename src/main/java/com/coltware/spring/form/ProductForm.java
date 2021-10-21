@@ -1,5 +1,12 @@
 package com.coltware.spring.form;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import com.coltware.spring.form.valid.ValidGroup1;
+import com.coltware.spring.form.valid.ValidGroup2;
+
 import lombok.Data;
 
 @Data
@@ -19,6 +26,7 @@ public class ProductForm {
 	/**
 	 * 商品コード
 	 */
+	@NotNull(groups = ValidGroup1.class)
 	private Long productCode;
 	
 	/**
@@ -29,6 +37,8 @@ public class ProductForm {
 	/**
 	 * 商品名
 	 */
+	@NotBlank(groups = ValidGroup1.class)
+	@Size(min=2, max=100, groups = ValidGroup2.class)
 	private String productName;
 	
 	/**
@@ -44,11 +54,13 @@ public class ProductForm {
 	/**
 	 * 値段
 	 */
+	@NotNull(groups = ValidGroup1.class)
 	private Long price;
 	
 	/**
 	 * 備考
 	 */
+	@Size(max=200)
 	private String remarks;
 	
 	/**

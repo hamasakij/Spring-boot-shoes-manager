@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div class="ui mini modal transition create-modal edit-modal"
+	th:fragment="components_category_create_edit_modal">
+	<div class="header">カテゴリ新規作成</div>
+	<div class="content">
+		<form method="post" th:action="@{/master/category/create}"
+			th:object="${categoryForm}" class="ui form category-create-edit-form">
+			<input type="hidden" name="categoryId">
+			<div class="field">
+				<label class="label-name">新規カテゴリ名</label>
+				<div class="first">
+					<div class="field name">
+						<input type="text" placeholder="カテゴリ名" th:field="*{categoryName}">
+					</div>
+					<div class="ui pointing red basic label hidden categoryName"></div>
+				</div>
+			</div>
+		</form>
+	</div>
+	<div class="actions">
+		<div class="ui negative button">キャンセル</div>
+		<div
+			class="ui positive right labeled icon button category-create-edit-ok-btn"
+			tabindex="0">
+			OK <i class="checkmark icon"></i>
+		</div>
+	</div>
+</div>
+</html>

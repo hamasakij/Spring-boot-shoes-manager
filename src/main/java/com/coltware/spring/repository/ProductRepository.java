@@ -11,4 +11,5 @@ import com.coltware.spring.model.Product;
 public interface ProductRepository extends JpaRepository<Product, Long>, JpaSpecificationExecutor<Product> {
 
 
+
 }

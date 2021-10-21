@@ -14,75 +14,60 @@
 				<form id="ui form" method="post"
 					th:action="@{/master/product/create}"
 					class="form-inline new-create-form" th:object="${productForm}">
-					<!-- 					カテゴリ -->
-										<div class="field">
-											<div class="first">
-												<label>カテゴリ</label>
-												<div class="ui icon input">
-													<select class="ui search dropdown" th:field="*{categoryId}">
-														<option value="0">カテゴリを選択してください</option>
-														<option value="1">1</option>
-														<option value="2">2</option>
-														<option value="3">3</option>
-														<option value="4">4</option>
-														<option value="5">5</option>
-														<option value="6">6</option>
-														<option value="7">7</option>
-													</select>
-												</div>
-											</div>
-					<!-- 						メーカー -->
-											<div class="second">
-												<label>メーカー</label>
-												<div class="ui icon input">
-													<select class="ui search dropdown" th:field="*{makerId}">
-														<option value="0">メーカーを選択してください</option>
-														<option value="1">1</option>
-														<option value="2">2</option>
-														<option value="3">3</option>
-														<option value="4">4</option>
-														<option value="5">5</option>
-														<option value="6">6</option>
-														<option value="7">7</option>
-													</select>
-												</div>
-											</div>
-										</div>
-					<!-- 					色 -->
-										<div class="field">
-											<div class="first">
-												<label>カラー</label>
-												<div class="ui icon input">
-													<select class="ui search dropdown" th:field="*{colorId}">
-														<option value="0">カラーを選択してください</option>
-														<option value="1">レッド</option>
-														<option value="2">ブルー</option>
-														<option value="3">イエロー</option>
-														<option value="4">グリーン</option>
-														<option value="5">ブラック</option>
-														<option value="6">ホワイト</option>
-														<option value="7">グレー</option>
-													</select>
-												</div>
-											</div>
-					<!-- 						サイズ -->
-											<div class="second">
-												<label>サイズ</label>
-												<div class="ui icon input">
-													<select class="ui search dropdown" th:field="*{sizeId}">
-														<option value="0">サイズを選択してください</option>
-														<option value="1">23.0</option>
-														<option value="2">23.5</option>
-														<option value="3">24.0</option>
-														<option value="4">24.5</option>
-														<option value="5">25.0</option>
-														<option value="6">25.5</option>
-														<option value="7">26.0</option>
-													</select>
-												</div>
-											</div>
-										</div>
-
+					<div class="ui error message"
+						th:style="${#fields.hasErrors()} ? 'display:block' : ''">
+						<i class="close icon"></i>
+						<div class="header">入力エラーがあります。</div>
+					</div>
+					<!-- カテゴリ -->
+					<div class="field">
+						<div class="first">
+							<label>カテゴリ</label>
+							<div class="ui icon input">
+								<select class="ui search dropdown" th:field="*{categoryId}">
+									<option value="">選択されていません</option>
+									<option th:each="category : ${categorys}"
+										th:value="${category.categoryId}"
+										th:text="${category.categoryName}"></option>
+								</select>
+							</div>
+						</div>
+						<!--メーカー -->
+						<div class="second">
+							<label>メーカー</label>
+							<div class="ui icon input">
+								<select class="ui search dropdown" th:field="*{makerId}">
+									<option value="">選択されていません</option>
+									<option th:each="maker : ${makers}" th:value="${maker.makerId}"
+										th:text="${maker.makerName}"></option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<!-- 色 -->
+					<div class="field">
+						<div class="first">
+							<label>カラー</label>
+							<div class="ui icon input">
+								<select class="ui search dropdown" th:field="*{colorId}">
+									<option value="">選択されていません</option>
+									<option th:each="color : ${colors}" th:value="${color.colorId}"
+										th:text="${color.colorName}"></option>
+								</select>
+							</div>
+						</div>
+						<!-- サイズ -->
+						<div class="second">
+							<label>サイズ</label>
+							<div class="ui icon input">
+								<select class="ui search dropdown" th:field="*{sizeId}">
+									<option value="">選択されていません</option>
+									<option th:each="size : ${sizes}" th:value="${size.sizeId}"
+										th:text="${size.size}"></option>
+								</select>
+							</div>
+						</div>
+					</div>
 					<!--商品コード-->
 					<div class="field">
 						<div class="first">
@@ -91,6 +76,11 @@
 								<input class="prompt" type="text" placeholder="商品コード..."
 									th:field="*{productCode}" />
 							</div>
+							<div class=" ui red message codeError"
+								th:if="
+						${#fields.hasErrors('productCode')}"
+								th:errors="*{productCode}" th:errorclass="err"></div>
+
 						</div>
 						<!--商品名-->
 						<div class="second">
@@ -99,6 +89,9 @@
 								<input class="prompt" type="text" placeholder="商品名..."
 									th:field="*{productName}" />
 							</div>
+							<div class="ui red message nameError"
+								th:if="${#fields.hasErrors('productName')}"
+								th:errors="*{productName}" th:errorclass="err"></div>
 						</div>
 					</div>
 					<!--値段-->
@@ -109,16 +102,17 @@
 								<input type="text" placeholder="金額" th:field="*{price}" />
 								<div class="ui basic label">円</div>
 							</div>
+							<div class="ui red message priceError"
+								th:if="${#fields.hasErrors('price')}" th:errors="*{price}"
+								th:errorclass="err"></div>
 						</div>
 					</div>
-
 					<div class="field">
-						<label>備考</label>
+						<label class="remarks">備考</label>
 						<div class="field">
 							<textarea name="description" rows="2" th:field="*{remarks}"></textarea>
 						</div>
 					</div>
-
 					<!-- 					<label>サムネイル</label> -->
 					<!-- 					<div class="ui three column grid"> -->
 					<!-- 						<div class="column top aligned content"> -->

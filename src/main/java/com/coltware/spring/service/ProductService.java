@@ -4,16 +4,18 @@ import java.util.List;
 
 import com.coltware.spring.dto.ProductDto;
 import com.coltware.spring.form.ProductForm;
+import com.coltware.spring.form.ProductSearchForm;
 import com.coltware.spring.model.Product;
 
 public interface ProductService {
 
 	/**
 	 * 商品の一覧
+	 * 
 	 * @param productId
 	 * @return
 	 */
-	public List<ProductDto> getProducts(Product productId);
+	public List<ProductDto> getProducts(ProductSearchForm productSearchForm);
 
 	/**
 	 * 商品の作成
@@ -22,6 +24,21 @@ public interface ProductService {
 	 * @return
 	 */
 	public Product doInsert(ProductForm productForm);
+
+	/**
+	 * idをキーに商品の詳細情報を取得する
+	 * 
+	 * @param productId
+	 * @return
+	 */
+	public ProductForm getDetail(Long productId);
+
+	/**
+	 * 商品の詳細情報を編集する
+	 * @param productorm
+	 * @return
+	 */
+	public Product detailUpdate(ProductForm productForm);
 
 	/**
 	 * 商品を削除(論理削除)

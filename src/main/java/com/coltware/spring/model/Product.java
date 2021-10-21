@@ -24,53 +24,53 @@ public class Product extends BaseModel {
 	 * 
 	 */
 	private Long productId;
-	
+
 	/**
 	 * カテゴリID
 	 * 
 	 */
 	@Column(name = "category_id")
 	private Long categoryId;
-	
+
 	/**
 	 * 商品コード
 	 * 
 	 */
 	private Long productCode;
-	
+
 	/**
 	 * メーカーID
 	 * 
 	 */
 	@Column(name = "maker_id")
 	private Long makerId;
-	
+
 	/**
 	 * 商品名
 	 * 
 	 */
 	private String productName;
-	
+
 	/**
 	 * カラーID
 	 * 
 	 */
 	@Column(name = "color_id")
 	private Long colorId;
-	
+
 	/**
 	 * サイズID
 	 * 
 	 */
 	@Column(name = "size_id")
 	private Long sizeId;
-	
+
 	/**
 	 * 値段
 	 * 
 	 */
 	private Long price;
-	
+
 	/**
 	 * 備考
 	 * 
@@ -84,7 +84,7 @@ public class Product extends BaseModel {
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "size_id", insertable = false, updatable = false)
 	private Size size;
-	
+
 	/**
 	 * カラー
 	 * 
@@ -92,7 +92,7 @@ public class Product extends BaseModel {
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "color_id", insertable = false, updatable = false)
 	private Color color;
-	
+
 	/**
 	 * カテゴリ
 	 * 
@@ -100,7 +100,7 @@ public class Product extends BaseModel {
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "category_id", insertable = false, updatable = false)
 	private Category category;
-	
+
 	/**
 	 * メーカー
 	 * 
@@ -108,11 +108,15 @@ public class Product extends BaseModel {
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "maker_id", insertable = false, updatable = false)
 	private Maker maker;
+
+	/**
+	 * サムネイル
+	 */
+	private String thumbnail;
 	
 	/**
-     * サムネイル
-     */
-    private String thumbnail;
+	 * 削除
+	 */
+	private Boolean deleted;
 
-	
 }

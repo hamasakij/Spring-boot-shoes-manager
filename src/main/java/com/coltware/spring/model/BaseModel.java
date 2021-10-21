@@ -36,7 +36,7 @@ public class BaseModel implements Serializable{
     /**
 	 * 削除
 	 */
-	private boolean deleted;
+	private Boolean deleted;
 
 
     /**
@@ -66,6 +66,12 @@ public class BaseModel implements Serializable{
     public void addDeletedDate() {
         Date now = new Date();
         this.setDeletedDate(now);
+    }
+    /**
+     * データの論理削除
+     */
+    public void addDeleted() {
+    	this.setDeleted(true);
     }
 }
 

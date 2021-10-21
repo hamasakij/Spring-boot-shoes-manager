@@ -22,5 +22,5 @@ public class Color extends BaseModel {
 	/**カラー名
 	 * 
 	 */
-	private String color;
+	private String colorName;
 }

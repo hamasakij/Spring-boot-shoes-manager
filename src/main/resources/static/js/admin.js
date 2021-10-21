@@ -8,13 +8,14 @@ $(function () {
         location.href = location.pathname + '/create';
     });
 
-    // 新規作成ボタン押下時 モーダル
-    $('button.new-entry-place').click(function () {
+    // カテゴリ新規作成ボタン押下時 モーダル
+    $('button.new-entry-category').click(function () {
         var el = this,
             data = $(el).data();
 
         $('.mini.modal.create-modal')
             .modal({
+	//onHideでモーダルが閉じられた後も処理を記述
                 onHide: function () {
                     // リセット処理
                     placeModalReset(this);
@@ -22,16 +23,30 @@ $(function () {
             }).modal('show');
     });
 
+// メーカー新規作成ボタン押下時 モーダル
+    $('button.new-entry-maker').click(function () {
+        var el = this,
+            data = $(el).data();
+
+        $('.mini.modal.create-modal')
+            .modal({
+	//onHideでモーダルが閉じられた後も処理を記述
+                onHide: function () {
+                    // リセット処理
+                    placeModalReset(this);
+                }
+            }).modal('show');
+    });
     // 編集ボタン押下時
     $('button.edit-entry').click(function () {
         var el = this,
             data = $(el).data();
         console.log(el)
-        location.href = location.pathname + '/' + data.id + '/edit';
+        location.href = location.pathname + '/' + data.id + '/detailEdit';
     });
 
-    // 編集ボタン押下時 モーダル
-    $('button.edit-entry-place').click(function () {
+    // カテゴリ編集ボタン押下時 モーダル
+    $('button.edit-entry-category').click(function () {
         var el = this,
             data = $(el).data(),
             mode = data.mode,
@@ -43,13 +58,46 @@ $(function () {
                 onShow: function () {
                     var el = this,
                         $el = $(el),
-                        $form = $el.find('form.place-create-edit-form'),
-                        $id = $el.find('input[name=id]'),
-                        $name = $el.find('input[name=name]'),
+                        $form = $el.find('form.category-create-edit-form'),
+                        $id = $el.find('input[name=categoryId]'),
+                        $name = $el.find('input[name=categoryName]'),
                         $method = $el.find('input[name=_method]');
 
                     if (mode === 'edit') {
-                        $form.attr('action', '/admin/place/' + id + '/edit');
+                        $form.attr('action', '/master/category/' + id + '/edit');
+                        $method.val('PUT');
+                        $id.val(id);
+                    }
+
+                    $name.val(name);
+                },
+                onHide: function () {
+                    // リセット処理
+                    placeModalReset(this);
+                }
+            }).modal('show');
+    });
+
+// メーカー編集ボタン押下時 モーダル
+    $('button.edit-entry-maker').click(function () {
+        var el = this,
+            data = $(el).data(),
+            mode = data.mode,
+            id = data.id,
+            name = data.name;
+
+        $('.mini.modal.edit-modal')
+            .modal({
+                onShow: function () {
+                    var el = this,
+                        $el = $(el),
+                        $form = $el.find('form.maker-create-edit-form'),
+                        $id = $el.find('input[name=makerId]'),
+                        $name = $el.find('input[name=makerName]'),
+                        $method = $el.find('input[name=_method]');
+
+                    if (mode === 'edit') {
+                        $form.attr('action', '/master/maker/' + id + '/edit');
                         $method.val('PUT');
                         $id.val(id);
                     }
@@ -119,12 +167,13 @@ $(function () {
         return false;
     });
 
+	
 
-    // 保管場所 新規作成・編集 OKボタン
-    $('div.button.place-create-edit-ok-btn').click(function () {
+    // カテゴリ 新規作成・編集 OKボタン
+    $('div.button.category-create-edit-ok-btn').click(function () {
         var el = this,
-            $modal = $('.ui.create-modal.edit-modal'),
-            $form = $('.place-create-edit-form'),
+            $modal = $('.ui.category-create-modal.edit-modal'),
+            $form = $('.category-create-edit-form'),
             data = {},
             action,
             formData;
@@ -149,6 +198,8 @@ $(function () {
             data: JSON.stringify(data)
         })
         .done(function (res) {
+	console.log("処理ができました");
+	console.log(res);
             var errors;
             if (res.success) {
                 var $successModal =$('.ui.ajax-success-modal'),
@@ -207,6 +258,94 @@ $(function () {
         return false;
     });
 
+ // メーカー 新規作成・編集 OKボタン
+    $('div.button.maker-create-edit-ok-btn').click(function () {
+        var el = this,
+            $modal = $('.ui.maker-create-modal.edit-modal'),
+            $form = $('.maker-create-edit-form'),
+            data = {},
+            action,
+            formData;
+
+        action = $form.attr('action');
+        // フォームのデータを取得
+        formData = $form.serializeArray();
+
+        // [{id="11"},{name: "名前"}] みたいな形を
+        // {id="11", name: "名前"} に変換
+        $(formData).each(function(index, obj){
+            data[obj.name] = obj.value;
+        });
+
+        // ajax
+        $.ajax({
+            type: 'post',
+            url : action,
+            dataType: 'json',
+            contentType: "application/json; charset=utf-8",
+            cache : false,
+            data: JSON.stringify(data)
+        })
+        .done(function (res) {
+	console.log("処理ができました");
+	console.log(res);
+            var errors;
+            if (res.success) {
+                var $successModal =$('.ui.ajax-success-modal'),
+                    $message;
+
+                if ($successModal.length) {
+                    $message = $successModal.find('.message');
+                    $message.text(res.message);
+
+                    $successModal.modal({
+                        onHide: function () {
+                            location.reload();
+                        }
+                    }).modal('show');
+                }
+
+            } else {
+                errors = res.errors;
+
+                $.each(errors, function (key, val) {
+                    var $field = $form.find('.field.' + key),
+                        $pointLbl = $form.find('.ui.pointing.red.basic.label.' + key);
+                    if ($field.length) {
+                        $field.addClass('error');
+                    }
+
+                    $pointLbl.text(val);
+                    $pointLbl.removeClass('hidden');
+                });
+
+
+            }
+        })
+        .fail(function (res) {
+            // エラーメッセージモーダル
+            var json = res.responseJSON,
+                $errModal = $('.ui.ajax-err-modal'),
+                $message;
+
+            if ($errModal.length) {
+                $message = $errModal.find('.message');
+                $message.text(json.message);
+
+                $errModal.modal({
+                    onHide: function () {
+                        location.reload();
+                    }
+                }).modal('show');
+            }
+
+        })
+        .always(() => {
+            $modal.modal('hide');
+        });
+
+        return false;
+    });
     // 書籍管理 サムネイルファイルフィールド
     $('input[name=thumbnail_file]').change(function () {
         var el = this,
