@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{/layout/layout}">
+<head>
+<title>商品情報編集</title>
+</head>
+<th:block layout:fragment="layout-content">
+	<!-- main -->
+	<div class="right-column">
+		<h3>商品詳細</h3>
+		<div class="ui segment">
+			<div class="search">
+				<form id="ui form" method="post"
+					th:action="@{/system/zaiko/detail}"
+					class="form-inline new-entry-form" th:object="${productForm}">
+					<input type="hidden" th:field="*{productId}">
+					<!--画像-->
+					<!-- 					<div class="image"> -->
+					<!-- 						<img class="ui middle aligned tiny image thumbnail-img" -->
+					<!-- 							src="http://ik1-344-32290.vs.sakura.ne.jp:8080/storage/thumbnails/no-image.png" -->
+					<!-- 							alt="サムネイル" /> -->
+					<!-- 			</div> -->
+					<!--カテゴリ-->
+					<div class="field">
+						<div class="first">
+							<label>カテゴリ</label>
+							<div class="ui icon input">
+								<select class="ui search dropdown" th:field="*{categoryId}">
+									<option value="">選択されていません</option>
+									<option th:each="category : ${categorys}"
+										th:value="${category.categoryId}"
+										th:text="${category.categoryName}"></option>
+								</select>
+							</div>
+						</div>
+						<!--メーカー-->
+						<div class="second">
+							<label>メーカー</label>
+							<div class="ui icon input">
+								<select class="ui search dropdown" th:field="*{makerId}">
+									<option value="">選択されていません</option>
+									<option th:each="maker : ${makers}" th:value="${maker.makerId}"
+										th:text="${maker.makerName}"></option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<!--色-->
+					<div class="field">
+						<div class="first">
+							<label>カラー</label>
+							<div class="ui icon input">
+								<select class="ui search dropdown" th:field="*{colorId}">
+									<option value="">選択されていません</option>
+									<option th:each="color : ${colors}" th:value="${color.colorId}"
+										th:text="${color.colorName}"></option>
+								</select>
+							</div>
+						</div>
+						<!--サイズ-->
+						<div class="second">
+							<label>サイズ</label>
+							<div class="ui icon input">
+								<select class="ui search dropdown" th:field="*{sizeId}">
+									<option value="">選択されていません</option>
+									<option th:each="size : ${sizes}" th:value="${size.sizeId}"
+										th:text="${size.size}"></option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<!--商品コード-->
+					<div class="field">
+						<div class="first">
+							<label>商品コード</label>
+							<div class="ui input">
+								<input class="prompt" type="text" placeholder="商品コード..."
+									th:field="*{productCode}" />
+							</div>
+							<div class=" ui red message codeError"
+								th:if="
+						${#fields.hasErrors('productCode')}"
+								th:errors="*{productCode}" th:errorclass="err"></div>
+						</div>
+						<!--商品名-->
+						<div class="second">
+							<label>商品名</label>
+							<div class="ui input">
+								<input class="prompt" type="text" placeholder="商品名..."
+									th:field="*{productName}" />
+							</div>
+							<div class="ui red message nameError"
+								th:if="${#fields.hasErrors('productName')}"
+								th:errors="*{productName}" th:errorclass="err"></div>
+						</div>
+					</div>
+					<!--値段-->
+					<div class="field">
+						<div class="first">
+							<label>値段</label>
+							<div class="ui right labeled input">
+								<input type="text" placeholder="金額" th:field="*{price}" />
+								<div class="ui basic label">円</div>
+							</div>
+							<div class="ui red message priceError"
+								th:if="${#fields.hasErrors('price')}" th:errors="*{price}"
+								th:errorclass="err"></div>
+						</div>
+					</div>
+					<!--備考-->
+					<div class="field">
+						<label class="remarks">備考</label>
+						<div class="field">
+							<textarea name="description" rows="2" th:field="*{remarks}"></textarea>
+						</div>
+					</div>
+					<div class="ui divider"></div>
+					<div class="button">
+						<button class="ui button blue" tabindex="0"
+							data-ol-has-click-handler="">出庫</button>
+						<button class="ui button red" tabindex="0"
+							data-ol-has-click-handler="">入庫</button>
+
+
+						<a class="ui button" tabindex="0" th:href="@{/system/zaiko}">戻る</a>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</th:block>
+</html>

@@ -12,11 +12,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.coltware.spring.dto.ProductDto;
+import com.coltware.spring.dto.ZaikoDto;
 import com.coltware.spring.form.ProductForm;
-import com.coltware.spring.form.ProductSearchForm;
+import com.coltware.spring.form.ZaikoSearchForm;
 import com.coltware.spring.form.valid.GroupOrder;
 import com.coltware.spring.model.Category;
 import com.coltware.spring.model.Color;
@@ -28,14 +27,20 @@ import com.coltware.spring.service.ColorService;
 import com.coltware.spring.service.MakerService;
 import com.coltware.spring.service.ProductService;
 import com.coltware.spring.service.SizeService;
+import com.coltware.spring.service.ZaikoService;
 
 @Controller
-@RequestMapping("/master")
-public class ProductController {
+@RequestMapping("/system")
+public class ZaikoController {
+
+	/**
+	 * 在庫 サービスクラス
+	 */
+	@Autowired
+	private ZaikoService zaikoService;
 
 	/**
 	 * 商品 サービスクラス
-	 * 
 	 */
 	@Autowired
 	private ProductService productService;
@@ -64,15 +69,20 @@ public class ProductController {
 	@Autowired
 	private MakerService makerService;
 
-	@GetMapping("/product")
-	public ModelAndView index(@ModelAttribute ProductSearchForm productSearchForm, ModelAndView mav) {
+	/**
+	 * 在庫一覧を表示
+	 * 
+	 * @param mav
+	 * @return
+	 */
+	@GetMapping("/zaiko")
+	public ModelAndView index(@ModelAttribute ZaikoSearchForm zaikoSearchForm, ModelAndView mav) {
 
-		// 商品一覧取得
-		// 商品情報をまとめる
-		List<ProductDto> resultList = productService.getProducts(productSearchForm);
+		//在庫のある商品を取得
+		List<ZaikoDto> zaiko = zaikoService.getInventory(zaikoSearchForm);
 
-		// ModelAndViewに登録
-		mav.addObject("products", resultList);
+		mav.addObject("zaiko", zaiko);
+		
 		// プルダウンメニュー一覧取得
 		List<Category> categoryList = categoryService.getCategorys();
 		List<Size> sizeList = sizeService.getSizes();
@@ -85,8 +95,8 @@ public class ProductController {
 		mav.addObject("colors", colorList);
 		mav.addObject("makers", makerList);
 
-		// 表示するビュー
-		mav.setViewName("master/product/index");
+		//表示するビュー
+		mav.setViewName("system/zaiko/index");
 
 		return mav;
 	}
@@ -97,7 +107,7 @@ public class ProductController {
 	 * @param mav
 	 * @return
 	 */
-	@GetMapping("/product/create")
+	@GetMapping("/zaiko/create")
 	public ModelAndView create(@ModelAttribute ProductForm productForm, ModelAndView mav) {
 		// プルダウンメニュー一覧取得
 		List<Category> categoryList = categoryService.getCategorys();
@@ -110,7 +120,7 @@ public class ProductController {
 		mav.addObject("colors", colorList);
 		mav.addObject("makers", makerList);
 		// 表示するビュー
-		mav.setViewName("master/product/create");
+		mav.setViewName("system/zaiko/create");
 		return mav;
 	}
 
@@ -119,7 +129,7 @@ public class ProductController {
 	 * 
 	 * @return
 	 */
-	@PostMapping("/product/create")
+	@PostMapping("/zaiko/create")
 	public ModelAndView insert(@Validated(GroupOrder.class) @ModelAttribute ProductForm productForm,
 			BindingResult errorResult, ModelAndView mav) {
 
@@ -134,12 +144,12 @@ public class ProductController {
 		mav.addObject("colors", colorList);
 		mav.addObject("makers", makerList);
 		if (errorResult.hasErrors()) {
-			mav.setViewName("master/product/create");
+			mav.setViewName("system/zaiko/create");
 			return mav;
 		}
 		Product product = productService.doInsert(productForm);
 
-		mav.setViewName("redirect:/master/product");
+		mav.setViewName("redirect:/system/zaiko");
 		return mav;
 	}
 
@@ -149,7 +159,7 @@ public class ProductController {
 	 * @param mav
 	 * @return
 	 */
-	@GetMapping("/product/{productId}/detailEdit")
+	@GetMapping("/zaiko/{productId}/detail")
 	public ModelAndView detail(@PathVariable Long productId, ModelAndView mav) {
 
 		ProductForm productForm = productService.getDetail(productId);
@@ -167,59 +177,7 @@ public class ProductController {
 		mav.addObject("colors", colorList);
 		mav.addObject("makers", makerList);
 
-		mav.setViewName("master/product/detailEdit");
-		return mav;
-	}
-
-	/**
-	 * 商品の詳細情報の編集
-	 * 
-	 * @param productForm
-	 * @param errorResult
-	 * @param mav
-	 * @return
-	 */
-	@PostMapping("/product/detailEdit")
-	public ModelAndView editUpdate(@Validated(GroupOrder.class) @ModelAttribute ProductForm productForm,
-			BindingResult errorResult, ModelAndView mav, RedirectAttributes attributes) {
-		// プルダウンメニュー一覧取得
-		List<Category> categoryList = categoryService.getCategorys();
-		List<Size> sizeList = sizeService.getSizes();
-		List<Color> colorList = colorService.getColors();
-		List<Maker> makerList = makerService.getMakers();
-		// それぞれを登録
-		mav.addObject("categorys", categoryList);
-		mav.addObject("sizes", sizeList);
-		mav.addObject("colors", colorList);
-		mav.addObject("makers", makerList);
-		// 入力チェック
-		if (errorResult.hasErrors()) {
-			mav.setViewName("master/product/detailEdit");
-			return mav;
-		}
-		Product product = productService.detailUpdate(productForm);
-		if (product == null) {
-			attributes.addFlashAttribute("message", "更新に失敗しました。");
-		} else {
-			attributes.addFlashAttribute("message", "更新しました。");
-		}
-
-		mav.setViewName("redirect:/master/product");
-		return mav;
-	}
-
-	/**
-	 * 削除するボタン 該当する行を削除する
-	 * 
-	 * @param productId
-	 * @param mav
-	 * @return
-	 */
-	@PostMapping("/product/{productId}/delete")
-	public ModelAndView delete(@PathVariable Long productId, ModelAndView mav) {
-		Product product = productService.deleteProduct(productId);
-
-		mav.setViewName("redirect:/master/product");
+		mav.setViewName("system/zaiko/detail");
 		return mav;
 	}
 

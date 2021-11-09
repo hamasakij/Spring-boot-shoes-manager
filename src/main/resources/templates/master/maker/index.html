@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.new.nz/thymeleaf/layout"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layout/layout}">
 <head>
 <title>メーカーマスタ</title>
@@ -18,14 +18,14 @@
 						<div class="field">
 							<select class="ui search dropdown" th:field="*{makerId}">
 								<option value="">選択されていません</option>
-								<option th:each="maker : ${maker}"
-									th:value="${maker.makerId}"
+								<option th:each="maker : ${maker}" th:value="${maker.makerId}"
 									th:text="${maker.makerName}"></option>
 							</select>
 						</div>
 						<div class="field">
 							<div class="ui input">
-								<input class="ui input" type="text" placeholder="メーカー名" th:field="*{makerName}" />
+								<input class="ui input" type="text" placeholder="メーカー名"
+									th:field="*{makerName}" />
 							</div>
 						</div>
 					</div>
@@ -69,6 +69,6 @@
 		th:replace="components/maker/maker_delete_modal :: components_maker_delete_modal">
 	</th:block>
 	<th:block
-		th:replace="components/maker/maker_create_edit_modal ::components_maker_create_edit_modal"
+		th:replace="components/maker/maker_create_edit_modal ::components_maker_create_edit_modal"></th:block>
 </th:block>
 </html>

@@ -9,6 +9,7 @@ import com.coltware.spring.model.Color;
 import com.coltware.spring.model.Maker;
 import com.coltware.spring.model.Product;
 import com.coltware.spring.model.Size;
+import com.coltware.spring.model.Zaiko;
 
 import lombok.Data;
 
@@ -38,6 +39,8 @@ public class ProductDto {
 	private Long maxPrice;
 	// 備考
 	private String remarks;
+	//在庫数
+	private Long inventoryCount;
 
 	/** join */
 	// カテゴリ
@@ -48,12 +51,21 @@ public class ProductDto {
 	private Color color;
 	// サイズ
 	private Size size;
+	//在庫
+	private Zaiko zaiko;
+	//商品
+	private Product product;
 
 	// 商品ID/商品Code/商品名/color/size
 	private StringBuffer productInfo;
 
+	
 
+	//入庫・出庫に表示する情報
+	private StringBuffer productAllInfo;
+	
 
+	
 	/**
 	 * productInfoのsetter
 	 * 
@@ -96,4 +108,64 @@ public class ProductDto {
 		this.productInfo = productInfo;
 	}
 
+	
+	/**
+	 * productAllInfoのsetter
+	 * @param product
+	 */
+	public void setProductAllInfo(Product product) {
+		String slash = "/";
+		StringBuffer productAllInfo = new StringBuffer();
+
+		if (getProductCode() == null) {
+			productAllInfo.append("未設定です");
+			productAllInfo.append(slash);
+		} else {
+			productAllInfo.append(product.getProductCode());
+			productAllInfo.append(slash);
+		}
+		if (StringUtils.isEmpty(getProductName())) {
+			productAllInfo.append("未設定です");
+			productAllInfo.append(slash);
+		} else {
+			productAllInfo.append(product.getProductName());
+			productAllInfo.append(slash);
+		}
+		if (product.getColor() == null) {
+			productAllInfo.append("未設定です");
+			productAllInfo.append(slash);
+		} else {
+			product.getColor();
+			productAllInfo.append(product.getColor().getColorName());
+			productAllInfo.append(slash);
+		}
+		if (product.getSize() == null) {
+			productAllInfo.append("未設定です");
+			productAllInfo.append(slash);
+		} else {
+			productAllInfo.append(product.getSize().getSize());
+			productAllInfo.append(slash);
+		}
+		if (product.getCategory() == null) {
+			productAllInfo.append("未設定です");
+			productAllInfo.append(slash);
+		} else {
+			productAllInfo.append(product.getCategory().getCategoryName());
+			productAllInfo.append(slash);
+		}
+		if (product.getMaker() == null) {
+			productAllInfo.append("未設定です");
+			productAllInfo.append(slash);
+		} else {
+			productAllInfo.append(product.getMaker().getMakerName());
+			productAllInfo.append(slash);
+		}
+		if (product.getPrice() == null) {
+			productAllInfo.append("未設定です");
+		} else {
+			productAllInfo.append(product.getPrice());
+		}
+		this.productAllInfo = productAllInfo;
+	}
+	
 }

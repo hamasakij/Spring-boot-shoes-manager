@@ -23,6 +23,7 @@ public class Product extends BaseModel {
 	 * 商品ID
 	 * 
 	 */
+	
 	private Long productId;
 
 	/**
@@ -118,5 +119,7 @@ public class Product extends BaseModel {
 	 * 削除
 	 */
 	private Boolean deleted;
+	
+
 
 }

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/tymeleaf/layout"
+	layout:decorate="~{layout/layout}">
+<head>
+<title>入庫登録</title>
+</head>
+<th:block layout:fragment="layout-content">
+	<!--main-->
+	<div class="right-column">
+		<h3>入庫登録</h3>
+		<div class="ui segment">
+			<!-- 検索 -->
+			<form id="user-search-form" method="post"
+				class="form-inline" >
+				<div class="ui category search">
+					<div class="ui icon input">
+						<div class="field">
+							<select class="ui search dropdown">
+								<option value="">選択してください</option>
+								<option value="">商品コード</option>
+								<option value="">カテゴリ</option>
+								<option value="">商品名</option>
+								<option value="">メーカー</option>
+								<option value="">色</option>
+								<option value="">サイズ</option>
+								<option value="">値段</option>
+							</select>
+						</div>
+						<div class="field">
+							<div class="ui input">
+								<input class="ui input" type="text" placeholder="商品を探す" />
+							</div>
+						</div>
+					</div>
+					<button class="ui inverted green button" type="submit">追加
+					</button>
+				</div>
+			</form>
+			<!-- 一覧表示 -->
+			<table class="ui celled table">
+				<thead>
+					<tr>
+						<th class="width">入庫日</th>
+						<th class="width">商品コード/商品名/カラー/サイズ/カテゴリ名/メーカー/値段</th>
+						<th class="width">在庫数</th>
+						<th class="width">入庫数</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="product : ${product}">
+						<td data-label="">
+							<div class="ui calendar" id="date_calendar">
+								<div class="ui input left icon">
+									<i class="calendar icon"></i> <input type="text" name="date"
+										placeholder="yyyy/mm/dd" />
+								</div>
+							</div>
+						</td>
+						<td th:text="${product.productAllInfo}">スニーカー/111/aaaa/白/26</td>
+						<td data-labal="">10</td>
+						<td data-label=""><input type="text" size="5" maxlength="20"
+							name="入庫数" value="0" />個</td>
+					</tr>
+				</tbody>
+			</table>
+			<div class="button">
+				<button class="ui button red new-entry" tabindex="0"
+					data-ol-has-click-handler="">入庫</button>
+				<a class="ui button" href="#" onclick="history.back(); return false;">戻る</a>
+			</div>
+		</div>
+	</div>
+</th:block>
+</html>

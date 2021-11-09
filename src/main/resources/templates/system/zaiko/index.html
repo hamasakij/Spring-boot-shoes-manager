@@ -3,15 +3,16 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layout/layout}">
 <head>
-<title>商品マスタ</title>
+<title>在庫一覧</title>
 </head>
-<!--main-->
 <th:block layout:fragment="layout-content">
+	<!--main-->
 	<div class="right-column">
-		<h3>商品マスタ検索</h3>
+		<h3>検索条件</h3>
 		<div class="ui segment">
-			<form id="user-search-form" th:action="@{/master/product}"
-				class="form-inline" th:object="${productSearchForm}">
+			<!--検索条件-->
+			<form id="user-search-form" class="form-inline"
+				th:action="@{/system/zaiko}" th:object="${zaikoSearchForm}">
 				<!--カテゴリ-->
 				<div class="field">
 					<div class="first">
@@ -29,7 +30,7 @@
 					<div class="second">
 						<label>メーカー</label>
 						<div class="ui icon input">
-							<select class="ui search dropdown" th:field="*{makerId}">
+							<select class="ui search dropdown" >
 							<option value="">選択されていません</option>
 								<option th:each="maker : ${makers}" th:value="${maker.makerId}"
 									th:text="${maker.makerName}"></option>
@@ -42,7 +43,7 @@
 					<div class="first">
 						<label>カラー</label>
 						<div class="ui icon input">
-							<select class="ui search dropdown" th:field="*{colorId}">
+							<select class="ui search dropdown" >
 							<option value="">選択されていません</option>
 								<option th:each="color : ${colors}" th:value="${color.colorId}"
 									th:text="${color.colorName}"></option>
@@ -53,7 +54,7 @@
 					<div class="second">
 						<label>サイズ</label>
 						<div class="ui icon input">
-							<select class="ui search dropdown" th:field="*{sizeId}">
+							<select class="ui search dropdown" >
 							<option value="">選択されていません</option>
 								<option th:each="size : ${sizes}" th:value="${size.sizeId}"
 									th:text="${size.size}"></option>
@@ -66,14 +67,14 @@
 					<div class="first">
 						<label>商品コード</label>
 						<div class="ui input">
-							<input class="prompt" type="text" placeholder="商品コード..." th:field="*{productCode}"/>
+							<input class="prompt" type="text" placeholder="商品コード..." />
 						</div>
 					</div>
 					<!--商品名-->
 					<div class="second">
 						<label>商品名</label>
 						<div class="ui input">
-							<input class="prompt" type="text" placeholder="商品名..." th:field="*{productName}" />
+							<input class="prompt" type="text" placeholder="商品名..."  />
 						</div>
 					</div>
 				</div>
@@ -82,10 +83,10 @@
 					<div class="first">
 						<label>金額</label>
 						<div class="ui right labeled input">
-							<input type="text" placeholder="金額" th:field="*{minPrice}" />
+							<input type="text" placeholder="金額"  />
 							<div class="ui basic label">円以上</div>
 							<div class="place">～</div>
-							<input type="text" placeholder="金額" th:field="*{maxPrice}"/>
+							<input type="text" placeholder="金額"/>
 							<div class="ui basic label">円以下</div>
 						</div>
 					</div>
@@ -96,46 +97,41 @@
 			</form>
 		</div>
 		<!-- 一覧表示 -->
-		<h3>商品一覧</h3>
+		<h3>在庫一覧</h3>
 		<div class="ui segment">
 			<div class="btn">
-				<button class="ui button green new-entry" tabindex="0"
-					>新規登録</button>
+				<button class="ui button green new-entry" tabindex="0">
+					新規登録</button>
 			</div>
 			<table class="ui celled table">
 				<thead>
 					<tr>
-						<th class="width">商品ID/商品コード/商品名/カラー/サイズ</th>
+						<th class="width">商品コード/商品名/カラー/サイズ</th>
 						<th class="width">カテゴリ名</th>
 						<th class="width">メーカー</th>
 						<th class="width">値段</th>
-						<th class="width">備考</th>
+						<th class="width">在庫数</th>
 						<th class="action"></th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="product : ${products}">
-						<td th:text="${product.productInfo}"></td>
-						<td th:text="${product.category.categoryName}"></td>
-						<td th:text="${product.maker.makerName}"></td>
-						<td th:text="${product.price}"></td>
-						<td th:text="${product.remarks}"></td>
+					<tr th:each="zaiko : ${zaiko}">
+						<td th:text="${zaiko.zaikoInfo}"></td>
+						<td th:text="${zaiko.product.category.categoryName}"></td>
+						<td th:text="${zaiko.product.maker.makerName}"></td>
+						<td th:text="${zaiko.product.price}"></td>
+						<td th:text="${zaiko.inventoryCount}"></td>
+
 						<td class="btn">
-							<button class="ui inverted yellow button edit-entry"
-								th:data-id="${product.productId}" tabindex="0">更新</button>
-							<button class="ui inverted blue button delete-entry"
-								th:data-id="${product.productId}"
-								th:data-url="@{/master/product/} +  ${product.productId} + '/delete'"
-								tabindex="0">削除</button>
+							<button class="ui button blue new-entry" tabindex="0"
+								data-ol-has-click-handler="">出庫</button>
+							<button class="ui inverted yellow button detail-entry"
+								th:data-id="${zaiko.product.productId}" tabindex="0">詳細</button>
 						</td>
 					</tr>
 				</tbody>
 			</table>
 		</div>
 	</div>
-	<!-- modal include -->
-	<th:block
-		th:replace="components/delete_modal :: components_delete_modal">
-	</th:block>
 </th:block>
 </html>

@@ -28,6 +28,8 @@ public class ProductServiceImpl implements ProductService {
 	@Autowired
 	private ProductRepository productRepository;
 
+	
+	
 	/**
 	 * 商品一覧取得 IDや名前などをリストにし、1つにまとめる カテゴリなどID表示のものを名前で表示する
 	 */
@@ -46,7 +48,7 @@ public class ProductServiceImpl implements ProductService {
 		
 		// productRepositoty.findAllで取得した情報をdtoにコピーする
 		List<Product> list = productRepository.findAll(Specification.where(categoryIdContains(categoryId))
-																	.or(makerIdContains(makerId))
+																	.and(makerIdContains(makerId))
 																	.and(colorIdContains(colorId))
 																	.and(sizeIdContains(sizeId))
 																	.and(codeContains(productCode))
@@ -61,7 +63,7 @@ public class ProductServiceImpl implements ProductService {
 			ProductDto dto = new ProductDto();
 			BeanUtils.copyProperties(product, dto);
 			dto.setProductInfo(product);
-
+			
 			resultList.add(dto);
 			
 		}
