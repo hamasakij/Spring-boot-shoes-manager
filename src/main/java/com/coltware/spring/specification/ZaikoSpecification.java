@@ -1,9 +1,6 @@
 package com.coltware.spring.specification;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
+import javax.persistence.criteria.*;
 
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.util.ObjectUtils;
@@ -92,8 +89,9 @@ public class ZaikoSpecification {
 
 			@Override
 			public Predicate toPredicate(Root<Zaiko> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
-				
-				return criteriaBuilder.equal(root.get("product"), categoryId);
+				// 想定しているSQLと同じイメージで
+				// select * from zaiko left join product_master on zaiko.product_id = product_master.product_id where product_master.category_id = ?
+				return criteriaBuilder.equal(root.join("product", JoinType.LEFT).get("categoryId"), categoryId);
 			}
 		};
 	}
