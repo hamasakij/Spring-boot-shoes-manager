@@ -15,46 +15,86 @@ import lombok.Data;
 
 public class ZaikoDto {
 
-	
-	// 商品ID
+	/**
+	 * 商品ID
+	 */
 	private Long productId;
-	// カテゴリID
+
+	/**
+	 * カテゴリID
+	 */
 	private Long categoryId;
-	// 商品コード
+
+	/**
+	 * 商品コード
+	 */
 	private Long productCode;
-	// メーカーID
+
+	/**
+	 * メーカーID
+	 */
 	private Long makerId;
-	// 商品名
+
+	/**
+	 * 商品名
+	 */
 	private String productName;
-	// カラーID
+
+	/**
+	 * カラーID
+	 */
 	private Long colorId;
-	// サイズID
+
+	/**
+	 * サイズID
+	 */
 	private Long sizeId;
-	// 値段
+
+	/**
+	 * 値段
+	 */
 	private Long price;
-	private Long minPrice;
-	private Long maxPrice;
-	// 備考
-	private String remarks;
-	//在庫数
+	
+	/**
+	 * 在庫数
+	 */
 	private Long inventoryCount;
-	
-	// カテゴリ
+
+	/**
+	 * カテゴリ
+	 */
 	private Category category;
-	// メーカー
+
+	/**
+	 * メーカー
+	 */
 	private Maker maker;
-	// カラー
+
+	/**
+	 * カラー
+	 */
 	private Color color;
-	// サイズ
+
+	/**
+	 * サイズ
+	 */
 	private Size size;
-	//在庫
+
+	/**
+	 * 在庫
+	 */
 	private Zaiko zaiko;
-	//商品
+
+	/**
+	 * 商品
+	 */
 	private Product product;
-	
-	//在庫一覧に表示する情報
+
+	/**
+	 * 在庫一覧に表示する情報(商品Code/商品名/color/size)
+	 */
 	private StringBuffer zaikoInfo;
-	
+
 	/**
 	 * zaikoInfoのsetter
 	 * @param product
@@ -63,23 +103,22 @@ public class ZaikoDto {
 		String slash = "/";
 		StringBuffer zaikoInfo = new StringBuffer();
 
-	
 		if (product.getProductCode() == null) {
-			zaikoInfo.append("未設定です");
+			zaikoInfo.append("未設定");
 			zaikoInfo.append(slash);
 		} else {
 			zaikoInfo.append(product.getProductCode());
 			zaikoInfo.append(slash);
 		}
 		if (StringUtils.isEmpty(product.getProductName())) {
-			zaikoInfo.append("未設定です");
+			zaikoInfo.append("未設定");
 			zaikoInfo.append(slash);
 		} else {
 			zaikoInfo.append(product.getProductName());
 			zaikoInfo.append(slash);
 		}
 		if (product.getColor() == null) {
-			zaikoInfo.append("未設定です");
+			zaikoInfo.append("未設定");
 			zaikoInfo.append(slash);
 		} else {
 			product.getColor();
@@ -87,10 +126,11 @@ public class ZaikoDto {
 			zaikoInfo.append(slash);
 		}
 		if (product.getSize() == null) {
-			zaikoInfo.append("未設定です");
+			zaikoInfo.append("未設定");
 		} else {
 			zaikoInfo.append(product.getSize().getSize());
 		}
 		this.zaikoInfo = zaikoInfo;
 	}
+
 }

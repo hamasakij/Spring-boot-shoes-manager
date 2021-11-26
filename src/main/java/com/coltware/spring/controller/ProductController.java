@@ -35,7 +35,6 @@ public class ProductController {
 
 	/**
 	 * 商品 サービスクラス
-	 * 
 	 */
 	@Autowired
 	private ProductService productService;
@@ -64,6 +63,12 @@ public class ProductController {
 	@Autowired
 	private MakerService makerService;
 
+	/**
+	 * 商品マスタ一覧表示
+	 * @param productSearchForm
+	 * @param mav
+	 * @return
+	 */
 	@GetMapping("/product")
 	public ModelAndView index(@ModelAttribute ProductSearchForm productSearchForm, ModelAndView mav) {
 
@@ -93,7 +98,7 @@ public class ProductController {
 
 	/**
 	 * 新規商品追加画面を表示
-	 * 
+	 * @param productForm
 	 * @param mav
 	 * @return
 	 */
@@ -116,7 +121,9 @@ public class ProductController {
 
 	/**
 	 * 新規登録した商品を生成する
-	 * 
+	 * @param productForm
+	 * @param errorResult
+	 * @param mav
 	 * @return
 	 */
 	@PostMapping("/product/create")
@@ -145,7 +152,7 @@ public class ProductController {
 
 	/**
 	 * 商品の詳細情報を取得
-	 * 
+	 * @param productId
 	 * @param mav
 	 * @return
 	 */
@@ -173,10 +180,10 @@ public class ProductController {
 
 	/**
 	 * 商品の詳細情報の編集
-	 * 
 	 * @param productForm
 	 * @param errorResult
 	 * @param mav
+	 * @param attributes
 	 * @return
 	 */
 	@PostMapping("/product/detailEdit")
@@ -210,7 +217,6 @@ public class ProductController {
 
 	/**
 	 * 削除するボタン 該当する行を削除する
-	 * 
 	 * @param productId
 	 * @param mav
 	 * @return

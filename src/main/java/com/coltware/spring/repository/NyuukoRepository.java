@@ -6,7 +6,10 @@ import org.springframework.stereotype.Repository;
 
 import com.coltware.spring.model.Nyuuko;
 
+/**
+ * 入庫 レポジトリ
+ */
 @Repository
-public interface NyuukoRepository extends JpaRepository<Nyuuko, Long>, JpaSpecificationExecutor<Nyuuko>{
+public interface NyuukoRepository extends JpaRepository<Nyuuko, Long>, JpaSpecificationExecutor<Nyuuko> {
 
 }

@@ -19,26 +19,32 @@ public class ProductSearchForm {
 	 * 値段
 	 */
 	private Long price;
+	
 	/**
 	 * 最低値段
 	 */
 	private Long minPrice;
+	
 	/**
 	 * 最高値段
 	 */
 	private Long maxPrice;
+	
 	/**
 	 * カテゴリID
 	 */
 	private Long categoryId;
+	
 	/**
 	 * メーカーID
 	 */
 	private Long makerId;
+	
 	/**
 	 * カラーID
 	 */
 	private Long colorId;
+	
 	/**
 	 * サイズID
 	 */

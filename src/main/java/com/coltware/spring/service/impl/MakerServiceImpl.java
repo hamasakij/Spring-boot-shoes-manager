@@ -31,6 +31,7 @@ public class MakerServiceImpl implements MakerService {
 	public List<Maker> getMakers(){
 		return makerRepository.findAll();
 	}
+	
 	/**
 	 * メーカー一覧取得
 	 */

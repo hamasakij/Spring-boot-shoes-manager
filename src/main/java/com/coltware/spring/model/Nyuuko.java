@@ -2,7 +2,6 @@ package com.coltware.spring.model;
 
 import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -21,11 +20,12 @@ import lombok.Data;
 @Table(name = "nyuuko")
 public class Nyuuko extends BaseModel {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	
 	/**
 	 * id(入庫)
 	 */
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	/**
@@ -33,19 +33,23 @@ public class Nyuuko extends BaseModel {
 	 */
 	@Column(name = "product_id")
 	private Long productId;
-	
+
 	/**
 	 * 入庫数
 	 */
 	private Long quantity;
-	
+
 	/**
 	 * 入庫日
 	 */
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date nyuukoDate;
 
-	@OneToOne(cascade = CascadeType.ALL)
+
+
+	@OneToOne(optional = false)
 	@JoinColumn(name = "product_id", insertable = false, updatable = false)
 	private Product product;
+
+
 }

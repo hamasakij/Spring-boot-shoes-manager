@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div class="ui mini modal transition syukko-check-modal"
+	th:fragment="components_syukko_check_modal">
+	<div class="header">確認画面</div>
+	<div class="content">
+		<form method="post" th:action="@{/system/syukko/check}"
+			th:object="${syukkoForm}" class="ui form syukko-check-form">
+			<input type="hidden" name="productId">
+			<input type="hidden" name="syukkoDate">
+			<input type="hidden" name="quantity">
+			<div class="field">
+				<label class="label-name">出庫してよろしいでしょうか？</label>
+				
+			</div>
+		</form>
+	</div>
+	<div class="actions">
+		<div class="ui negative button">キャンセル</div>
+		<div
+			class="ui positive right labeled icon button syukko-check-ok-btn"
+			tabindex="0">
+			OK <i class="checkmark icon"></i>
+		</div>
+	</div>
+</div>
+</html>

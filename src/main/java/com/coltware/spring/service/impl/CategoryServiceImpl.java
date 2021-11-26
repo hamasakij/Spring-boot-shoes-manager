@@ -21,15 +21,19 @@ import com.coltware.spring.service.CategoryService;
 @Transactional
 public class CategoryServiceImpl implements CategoryService {
 
+	/**
+	 * カテゴリ レポジトリ
+	 */
 	@Autowired
 	private CategoryRepository categoryRepository;
-
+	
 	/**
 	 * カテゴリのプルダウンメニュー取得
 	 */
-	public List<Category> getCategorys(){
+	public List<Category> getCategorys() {
 		return categoryRepository.findAll();
 	}
+
 	/**
 	 * カテゴリ一覧を取得
 	 */
@@ -39,10 +43,9 @@ public class CategoryServiceImpl implements CategoryService {
 		Long categoryId = categorySearchForm.getCategoryId();
 		String categoryName = categorySearchForm.getCategoryName();
 		Boolean deleted = categorySearchForm.getDeleted();
-		
+
 		return categoryRepository.findAll(Specification.where(categoryIdContains(categoryId))
-													.or(categoryNameContains(categoryName))
-													.and(deletedContains(deleted)));
+				.or(categoryNameContains(categoryName)).and(deletedContains(deleted)));
 	}
 
 	/**
@@ -81,13 +84,14 @@ public class CategoryServiceImpl implements CategoryService {
 	@Override
 	public Category editCategory(CategoryForm categoryForm) {
 		Category category = new Category();
-		if(categoryForm == null) {
+		if (categoryForm == null) {
 			throw new NotFoundException("対象のレコードが見つかりません");
 		}
 		BeanUtils.copyProperties(categoryForm, category);
-		
+
 		return categoryRepository.save(category);
 	}
+
 	/**
 	 * Idをキーにカテゴリを削除
 	 */

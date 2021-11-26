@@ -6,7 +6,10 @@ import org.springframework.stereotype.Repository;
 
 import com.coltware.spring.model.Zaiko;
 
+/**
+ * 在庫 レポジトリ
+ */
 @Repository
-public interface ZaikoRepository extends JpaRepository<Zaiko, Long>, JpaSpecificationExecutor<Zaiko>{
+public interface ZaikoRepository extends JpaRepository<Zaiko, Long>, JpaSpecificationExecutor<Zaiko> {
 
 }

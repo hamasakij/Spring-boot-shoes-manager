@@ -1,5 +1,7 @@
 package com.coltware.spring.model;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,23 +12,28 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "maker_master")
-public class Maker extends BaseModel{
+@Table(name = "syukko")
+public class Syukko {
 
 	/**
-	 * メーカーID
+	 * Id(出庫)
 	 */
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long makerId;
+	@GeneratedValue(strategy =  GenerationType.IDENTITY)
+	private Long id;
 	
 	/**
-	 * メーカー名
+	 * 商品Id 
 	 */
-	private String makerName;
+	private Long productId;
 	
 	/**
-	 * 削除
+	 * 出庫数
 	 */
-	private Boolean deleted;
+	private Long quantity;
+	
+	/**
+	 * 出庫日
+	 */
+	private Date syukkoDate;
 }

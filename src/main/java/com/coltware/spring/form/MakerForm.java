@@ -16,6 +16,7 @@ public class MakerForm {
 	 * メーカーId
 	 */
 	private Long makerId;
+	
 	/**
 	 * メーカー名
 	 */

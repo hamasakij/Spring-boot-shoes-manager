@@ -6,7 +6,10 @@ import org.springframework.stereotype.Repository;
 
 import com.coltware.spring.model.Maker;
 
+/**
+ * メーカー レポジトリ
+ */
 @Repository
-public interface MakerRepository extends JpaRepository<Maker, Long>, JpaSpecificationExecutor<Maker>{
+public interface MakerRepository extends JpaRepository<Maker, Long>, JpaSpecificationExecutor<Maker> {
 
 }

@@ -13,14 +13,15 @@ import lombok.Data;
 @Table(name = "color_master")
 public class Color extends BaseModel {
 
+	/**
+	 * カラーID
+	 */
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	/**カラーID
-	 * 
-	 */
 	private Long colorId;
-	/**カラー名
-	 * 
+	
+	/**
+	 * カラー名
 	 */
 	private String colorName;
 }

@@ -13,14 +13,16 @@ import lombok.Data;
 @Table(name = "size_master")
 public class Size extends BaseModel {
 
+
+	/**
+	 * サイズID
+	 */
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	/**サイズID
-	 * 
-	 */
 	private Long sizeId;
-	/**サイズ
-	 * 
+	
+	/**
+	 * サイズ
 	 */
 	private Double size;
 }

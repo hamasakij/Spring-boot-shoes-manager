@@ -9,6 +9,7 @@ public class CategorySearchForm {
 	 * カテゴリid
 	 */
 	private Long categoryId;
+	
 	/**
 	 * カテゴリ名
 	 */

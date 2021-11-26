@@ -37,7 +37,7 @@ public class MakerController {
 
 	/**
 	 * メーカー一覧の取得
-	 * 
+	 * @param makerSearchForm
 	 * @param mav
 	 * @return
 	 */
@@ -58,7 +58,6 @@ public class MakerController {
 
 	/**
 	 * メーカー新規作成
-	 * 
 	 * @param makerForm
 	 * @param errorResult
 	 * @return
@@ -93,7 +92,6 @@ public class MakerController {
 
 	/**
 	 * メーカーの更新
-	 * 
 	 * @param makerId
 	 * @param makerForm
 	 * @param errorResult
@@ -130,7 +128,6 @@ public class MakerController {
 
 	/**
 	 * Idをキーにメーカーを削除
-	 * 
 	 * @param makerId
 	 * @param mav
 	 * @return

@@ -37,7 +37,7 @@ public class CategoryController {
 
 	/**
 	 * カテゴリ一覧の取得
-	 * 
+	 * @param categorySearchForm
 	 * @param mav
 	 * @return
 	 */
@@ -60,9 +60,8 @@ public class CategoryController {
 
 	/**
 	 * カテゴリの新規作成
-	 * 
 	 * @param categoryForm
-	 * @param mav
+	 * @param errorResult
 	 * @return
 	 */
 	@PostMapping("/category/create")
@@ -134,7 +133,6 @@ public class CategoryController {
 
 	/**
 	 * Idをキーに論理削除
-	 * 
 	 * @param categoryId
 	 * @param mav
 	 * @return

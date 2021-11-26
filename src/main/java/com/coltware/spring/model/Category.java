@@ -13,16 +13,16 @@ import lombok.Data;
 @Table(name = "category_master")
 public class Category extends BaseModel {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	
 	/**
 	 * カテゴリID
-	 * 
 	 */
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long categoryId;
+	
 	/**
 	 * カテゴリ名
-	 * 
 	 */
 	private String categoryName;
 

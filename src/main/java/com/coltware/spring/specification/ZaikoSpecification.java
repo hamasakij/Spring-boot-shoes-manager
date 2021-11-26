@@ -1,6 +1,10 @@
 package com.coltware.spring.specification;
 
-import javax.persistence.criteria.*;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.JoinType;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.util.ObjectUtils;
@@ -24,7 +28,7 @@ public class ZaikoSpecification {
 
 			@Override
 			public Predicate toPredicate(Root<Zaiko> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
-				return criteriaBuilder.like(root.get("productName"), "%" + productName + "%");
+				return criteriaBuilder.like(root.join("product", JoinType.LEFT).get("productName"), "%" + productName + "%");
 			}
 		};
 	}
@@ -40,7 +44,7 @@ public class ZaikoSpecification {
 
 			@Override
 			public Predicate toPredicate(Root<Zaiko> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
-				return criteriaBuilder.equal(root.get("productCode"), productCode);
+				return criteriaBuilder.equal(root.join("product", JoinType.LEFT).get("productCode"), productCode);
 			}
 		};
 	}
@@ -56,7 +60,7 @@ public class ZaikoSpecification {
 
 			@Override
 			public Predicate toPredicate(Root<Zaiko> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
-				return criteriaBuilder.ge(root.get("minPrice"), minPrice);
+				return criteriaBuilder.ge(root.join("product", JoinType.LEFT).get("price"), minPrice);
 			}
 		};
 	}
@@ -73,7 +77,7 @@ public class ZaikoSpecification {
 
 			@Override
 			public Predicate toPredicate(Root<Zaiko> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
-				return criteriaBuilder.le(root.get("maxPrice"), maxPrice);
+				return criteriaBuilder.le(root.join("product", JoinType.LEFT).get("price"), maxPrice);
 			}
 		};
 	}
@@ -107,7 +111,7 @@ public class ZaikoSpecification {
 
 			@Override
 			public Predicate toPredicate(Root<Zaiko> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
-				return criteriaBuilder.equal(root.get("colorId"), colorId);
+				return criteriaBuilder.equal(root.join("product", JoinType.LEFT).get("colorId"), colorId);
 			}
 		};
 	}
@@ -123,7 +127,7 @@ public class ZaikoSpecification {
 
 			@Override
 			public Predicate toPredicate(Root<Zaiko> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
-				return criteriaBuilder.equal(root.get("makerId"), makerId);
+				return criteriaBuilder.equal(root.join("product",JoinType.LEFT).get("makerId"),makerId);
 			}
 		};
 	}
@@ -139,7 +143,7 @@ public class ZaikoSpecification {
 
 			@Override
 			public Predicate toPredicate(Root<Zaiko> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
-				return criteriaBuilder.equal(root.get("sizeId"), sizeId);
+				return criteriaBuilder.equal(root.join("product", JoinType.LEFT).get("sizeId"), sizeId);
 			}
 		};
 	}
@@ -156,7 +160,7 @@ public class ZaikoSpecification {
 
 			@Override
 			public Predicate toPredicate(Root<Zaiko> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
-				return criteriaBuilder.equal(root.get("deleted"), 0);
+				return criteriaBuilder.equal(root.join("product", JoinType.LEFT).get("deleted"), 0);
 			}
 
 		};

@@ -118,6 +118,7 @@ $(function() {
 			}).modal('show');
 	});
 
+
 	// 削除ボタン押下時
 	$('button.delete-entry').click(function() {
 		var el = this,
@@ -353,6 +354,418 @@ $(function() {
 
 		return false;
 	});
+	// 在庫の出庫ボタン押下時 モーダル
+	$('button.order_syukko').click(function() {
+		var el = this,
+			data = $(el).data(),
+			mode = data.mode,
+			id = data.id,
+			name = data.name;
+		ic = data.ic
+
+		$('.modal.syukko-order-modal')
+			.modal({
+				onShow: function() {
+					var el = this,
+						$el = $(el),
+						$form = $el.find('form.syukko-order-form'),
+						$id = $el.find('input[name=productId]'),
+						$name = $el.find('input[name=zaiko]'),
+						$ic = $el.find('input[name=inventoryCount]'),
+
+
+						$method = $el.find('input[name=_method]');
+
+					if (mode === 'order') {
+						$form.attr('action', '/system/syukko/' + id + '/order/');
+						$method.val('PUT');
+						$id.val(id);
+					}
+
+					$name.val(name);
+					$ic.val(ic);
+
+
+				},
+				onHide: function() {
+					// リセット処理
+					placeModalReset(this);
+				}
+			}).modal('show');
+
+	});
+	// 在庫・出庫 OKボタン
+	$('div.button.syukko-order-ok-btn').click(function() {
+		var el = this,
+			$modal = $('.ui.syukko_order_modal'),
+			$form = $('.syukko-order-form'),
+
+			data = {},
+			action,
+			formData;
+
+
+		action = $form.attr('action');
+		// フォームのデータを取得
+		formData = $form.serializeArray();
+		console.log(formData);
+		// [{id="11"},{name: "名前"}] みたいな形を
+		// {id="11", name: "名前"} に変換
+		$(formData).each(function(index, obj) {
+			data[obj.name] = obj.value;
+
+			if (obj.name == "syukkoDate") {
+				data[obj.name] = new Date(obj.value);
+			}
+
+		});
+		console.log(data);
+		// ajax
+		$.ajax({
+			type: 'post',
+			url: action,
+			dataType: 'json',
+			contentType: "application/json; charset=utf-8",
+			cache: false,
+			data: JSON.stringify(data)
+		})
+			.done(function(res) {
+				console.log("処理ができました");
+				console.log(res);
+				var errors;
+				if (res.success) {
+					var $successModal = $('.ui.ajax-success-modal'),
+						$message;
+
+					if ($successModal.length) {
+						$message = $successModal.find('.message');
+						$message.text(res.message);
+
+						$successModal.modal({
+							onHide: function() {
+								location.reload();
+							}
+						}).modal('show');
+					}
+
+				} else {
+					errors = res.errors;
+
+					$.each(errors, function(key, val) {
+						var $field = $form.find('.field.' + key),
+							$pointLbl = $form.find('.ui.pointing.red.basic.label.' + key);
+						if ($field.length) {
+							$field.addClass('error');
+						}
+
+						$pointLbl.text(val);
+						$pointLbl.removeClass('hidden');
+					});
+
+
+				}
+			})
+			.fail(function(res) {
+				// エラーメッセージモーダル
+				var json = res.responseJSON,
+					$errModal = $('.ui.ajax-err-modal'),
+					$message;
+
+				if ($errModal.length) {
+					$message = $errModal.find('.message');
+					$message.text(json.message);
+
+					$errModal.modal({
+						onHide: function() {
+							location.reload();
+						}
+					}).modal('show');
+				}
+
+			})
+			.always(() => {
+				$modal.modal('hide');
+			});
+
+		return false;
+	});
+
+	// 出庫の出庫ボタン押下時 モーダル
+	$('button.order_system_syukko').click(function() {
+
+
+		var el = this,
+			data = $(el).data(),
+			mode = data.mode,
+			id = data.id,
+			name = data.name;
+		ic = data.ic;
+		item = data.item;
+		quantitys = data.quantitys;
+
+
+		$('.modal.syukko-check-modal')
+			.modal({
+				onShow: function() {
+					var el = this,
+						$el = $(el),
+						$form = $el.find('form.syukko-order-form'),
+						$id = $el.find('input[name=productId]'),
+						$name = $el.find('input[name=syukko]'),
+						$ic = $el.find('input[name=inventoryCount]'),
+						
+
+
+					$method = $el.find('input[name=_method]');
+
+					if (mode === 'order') {
+						$form.attr('action', '/system/syukko/' + id + '/check/');
+						$method.val('PUT');
+						$id.val(id);
+					}
+
+					$name.val(name);
+					$ic.val(ic);
+
+
+				},
+				onHide: function() {
+					// リセット処理
+					placeModalReset(this);
+				}
+			}).modal('show');
+
+	});
+	// 出庫・出庫 OKボタン
+	$('div.button.syukko-check-ok-btn').click(function() {
+		var el = this,
+			$modal = $('.ui.syukko_check_modal'),
+			$form = $('.syukko-order-form'),
+
+			data = {},
+			action,
+			formData;
+
+
+		action = $form.attr('action');
+		// フォームのデータを取得
+		formData = $form.serializeArray();
+		console.log(formData);
+		// [{id="11"},{name: "名前"}] みたいな形を
+		// {id="11", name: "名前"} に変換
+		$(formData).each(function(index, obj) {
+			data[obj.name] = obj.value;
+
+			if (obj.name == "syukkoDate") {
+				data[obj.name] = new Date(obj.value);
+			}
+
+		});
+		console.log(data);
+		// ajax
+		$.ajax({
+			type: 'post',
+			url: action,
+			dataType: 'json',
+			contentType: "application/json; charset=utf-8",
+			cache: false,
+			data: JSON.stringify(data)
+		})
+			.done(function(res) {
+				console.log("処理ができました");
+				console.log(res);
+				var errors;
+				if (res.success) {
+					var $successModal = $('.ui.ajax-success-modal'),
+						$message;
+
+					if ($successModal.length) {
+						$message = $successModal.find('.message');
+						$message.text(res.message);
+
+						$successModal.modal({
+							onHide: function() {
+								location.reload();
+							}
+						}).modal('show');
+					}
+
+				} else {
+					errors = res.errors;
+
+					$.each(errors, function(key, val) {
+						var $field = $form.find('.field.' + key),
+							$pointLbl = $form.find('.ui.pointing.red.basic.label.' + key);
+						if ($field.length) {
+							$field.addClass('error');
+						}
+
+						$pointLbl.text(val);
+						$pointLbl.removeClass('hidden');
+					});
+
+
+				}
+			})
+			.fail(function(res) {
+				// エラーメッセージモーダル
+				var json = res.responseJSON,
+					$errModal = $('.ui.ajax-err-modal'),
+					$message;
+
+				if ($errModal.length) {
+					$message = $errModal.find('.message');
+					$message.text(json.message);
+
+					$errModal.modal({
+						onHide: function() {
+							location.reload();
+						}
+					}).modal('show');
+				}
+
+			})
+			.always(() => {
+				$modal.modal('hide');
+			});
+
+		return false;
+	});
+
+	// 入庫の入庫ボタン押下時 モーダル
+	$('button.order_system_nyuuko').click(function() {
+		var el = this,
+			data = $(el).data(),
+			mode = data.mode,
+			id = data.id,
+			name = data.name;
+
+		$('.modal.nyuuko-check-modal')
+			.modal({
+				onShow: function() {
+					var el = this,
+						$el = $(el),
+						$form = $el.find('form.nyuuko-order-form'),
+						$id = $el.find('input[name=productId]'),
+						$name = $el.find('input[name=nyuuko]'),
+
+
+
+						$method = $el.find('input[name=_method]');
+
+					if (mode === 'order') {
+						$form.attr('action', '/system/nyuuko/' + id + '/check/');
+						$method.val('PUT');
+						$id.val(id);
+					}
+
+					$name.val(name);
+
+
+				},
+				onHide: function() {
+					// リセット処理
+					placeModalReset(this);
+				}
+			}).modal('show');
+
+	});
+	// 入庫・入庫 OKボタン
+	$('div.button.nyuuko-check-ok-btn').click(function() {
+		var el = this,
+			$modal = $('.ui.nyuuko_check_modal'),
+			$form = $('.nyuuko-order-form'),
+
+			data = {},
+			action,
+			formData;
+
+
+		action = $form.attr('action');
+		// フォームのデータを取得
+		formData = $form.serializeArray();
+		console.log(formData);
+		// [{id="11"},{name: "名前"}] みたいな形を
+		// {id="11", name: "名前"} に変換
+		$(formData).each(function(index, obj) {
+			data[obj.name] = obj.value;
+
+			if (obj.name == "nyuukoDate") {
+				data[obj.name] = new Date(obj.value);
+			}
+
+		});
+		console.log(data);
+		// ajax
+		$.ajax({
+			type: 'post',
+			url: action,
+			dataType: 'json',
+			contentType: "application/json; charset=utf-8",
+			cache: false,
+			data: JSON.stringify(data)
+		})
+			.done(function(res) {
+				console.log("処理ができました");
+				console.log(res);
+				var errors;
+				if (res.success) {
+					var $successModal = $('.ui.ajax-success-modal'),
+						$message;
+
+					if ($successModal.length) {
+						$message = $successModal.find('.message');
+						$message.text(res.message);
+
+						$successModal.modal({
+							onHide: function() {
+								location.reload();
+							}
+						}).modal('show');
+					}
+
+				} else {
+					errors = res.errors;
+
+					$.each(errors, function(key, val) {
+						var $field = $form.find('.field.' + key),
+							$pointLbl = $form.find('.ui.pointing.red.basic.label.' + key);
+						if ($field.length) {
+							$field.addClass('error');
+						}
+
+						$pointLbl.text(val);
+						$pointLbl.removeClass('hidden');
+					});
+
+
+				}
+			})
+			.fail(function(res) {
+				// エラーメッセージモーダル
+				var json = res.responseJSON,
+					$errModal = $('.ui.ajax-err-modal'),
+					$message;
+
+				if ($errModal.length) {
+					$message = $errModal.find('.message');
+					$message.text(json.message);
+
+					$errModal.modal({
+						onHide: function() {
+							location.reload();
+						}
+					}).modal('show');
+				}
+
+			})
+			.always(() => {
+				$modal.modal('hide');
+			});
+
+		return false;
+	});
+
 	// 書籍管理 サムネイルファイルフィールド
 	$('input[name=thumbnail_file]').change(function() {
 		var el = this,

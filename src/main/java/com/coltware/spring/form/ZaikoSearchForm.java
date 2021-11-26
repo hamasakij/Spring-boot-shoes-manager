@@ -17,9 +17,10 @@ public class ZaikoSearchForm {
 	 */
 	private Long inventoryCount;
 	
-	
+	/**
+	 * 商品
+	 */
 	private Product product;
-	
 
 	/**
 	 * 商品名
@@ -35,26 +36,32 @@ public class ZaikoSearchForm {
 	 * 値段
 	 */
 	private Long price;
+	
 	/**
 	 * 最低値段
 	 */
 	private Long minPrice;
+	
 	/**
 	 * 最高値段
 	 */
 	private Long maxPrice;
+	
 	/**
 	 * カテゴリID
 	 */
 	private Long categoryId;
+	
 	/**
 	 * メーカーID
 	 */
 	private Long makerId;
+	
 	/**
 	 * カラーID
 	 */
 	private Long colorId;
+	
 	/**
 	 * サイズID
 	 */

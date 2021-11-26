@@ -16,10 +16,10 @@
 				class="menu-main-title">在庫管理システム</span>
 			</a>
 			<div class="ui secondary menu">
-				<a class="item" th:href="@{/system/zaiko}">在庫一覧</a> <a
-					class="item" th:href="@{/system/nyuuko}">入庫登録</a> <a
-					class="item" th:href="@{/syukko/index.html}">出庫登録</a> <a
-					class="item" th:href="@{/master/product}">商品マスタ</a> <a class="item"
+				<a class="item" th:href="@{/system/zaiko}">在庫一覧</a> <a class="item"
+					th:href="@{/system/nyuuko}">入庫登録</a> <a class="item"
+					th:href="@{/system/syukko}">出庫登録</a> <a class="item"
+					th:href="@{/master/product}">商品マスタ</a> <a class="item"
 					th:href="@{/master/category}">カテゴリマスタ</a> <a class="item"
 					th:href="@{/master/maker}">メーカー</a> <a class="item"
 					th:href="@{/admin/userList.html}">管理者</a>
@@ -40,14 +40,14 @@
 			th:replace="/components/ajax_success_modal :: ajax_success_modal">
 		</th:block>
 		<!-- ajax error modal -->
-		<th:block
-			th:replace="/components/ajax_err_modal :: ajax-err-modal">
+		<th:block th:replace="/components/ajax_err_modal :: ajax-err-modal">
 		</th:block>
 	</div>
 	<th:block th:fragment="script">
 		<script th:src="@{/webjars/jquery/3.6.0/jquery.js}"></script>
 		<script th:src="@{/webjars/Semantic-UI/2.4.1/semantic.js}"></script>
 		<script th:src="@{/js/admin.js}"></script>
+		
 	</th:block>
 </body>
 </html>

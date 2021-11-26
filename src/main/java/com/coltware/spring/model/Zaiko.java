@@ -16,11 +16,12 @@ import lombok.Data;
 @Table(name = "zaiko")
 public class Zaiko extends BaseModel {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	
 	/**
 	 * 在庫Id
 	 */
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	/**
@@ -34,11 +35,15 @@ public class Zaiko extends BaseModel {
 	 */
 	private Long inventoryCount;
 	
-	
+	/**
+	 * 商品
+	 */
 	@OneToOne(optional = false)
 	@JoinColumn(name = "product_id", insertable = false, updatable = false)
 	private Product product;
 	
+	
+
 
 
 

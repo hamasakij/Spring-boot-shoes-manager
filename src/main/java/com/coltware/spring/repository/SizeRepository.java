@@ -6,7 +6,10 @@ import org.springframework.stereotype.Repository;
 
 import com.coltware.spring.model.Size;
 
+/**
+ * サイズ レポジトリ
+ */
 @Repository
-public interface SizeRepository extends JpaRepository<Size, Long>, JpaSpecificationExecutor<Size>{
+public interface SizeRepository extends JpaRepository<Size, Long>, JpaSpecificationExecutor<Size> {
 
 }

@@ -7,10 +7,10 @@ import org.springframework.format.annotation.DateTimeFormat;
 import lombok.Data;
 
 @Data
-public class NyuukoForm {
+public class SyukkoForm {
 
 	/**
-	 * 入庫Id
+	 * Id(出庫)
 	 */
 	private Long id;
 
@@ -20,13 +20,13 @@ public class NyuukoForm {
 	private Long productId;
 
 	/**
-	 * 入庫数
+	 * 出庫数
 	 */
 	private Long quantity;
 
 	/**
-	 * 入庫日
+	 * 出庫日
 	 */
 	@DateTimeFormat(pattern = "yyyy/MM/dd")
-	private Date nyuukoDate;
+	private Date syukkoDate;
 }

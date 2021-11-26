@@ -7,13 +7,15 @@ import com.coltware.spring.form.ProductForm;
 import com.coltware.spring.form.ProductSearchForm;
 import com.coltware.spring.model.Product;
 
+/**
+ * 商品 サービス
+ */
 public interface ProductService {
-
 
 	/**
 	 * 商品の一覧条件付きで表示
 	 * 
-	 * @param productId
+	 * @param productSearchForm
 	 * @return
 	 */
 	public List<ProductDto> getProducts(ProductSearchForm productSearchForm);
@@ -36,6 +38,7 @@ public interface ProductService {
 
 	/**
 	 * 商品の詳細情報を編集する
+	 * 
 	 * @param productorm
 	 * @return
 	 */

@@ -3,12 +3,12 @@
 	xmlns:layout="http://www.ultraq.net.nz/tymeleaf/layout"
 	layout:decorate="~{layout/layout}">
 <head>
-<title>入庫登録</title>
+<title>出庫登録</title>
 </head>
 <th:block layout:fragment="layout-content">
 	<!--main-->
 	<div class="right-column">
-		<h3>入庫登録</h3>
+		<h3>出庫登録</h3>
 		<div class="ui segment">
 			<!-- 検索 -->
 			<form id="user-search-form" class="form-inline">
@@ -37,45 +37,47 @@
 				</div>
 			</form>
 			<!-- 一覧表示 -->
-			<form method="post" th:action="@{/system/nyuuko/{productId}/check}"
-				th:object="${nyuukoForm}" class="ui form nyuuko-order-form">
+			<form method="post" th:action="@{/system/syukko/{productId}/check}"
+				th:object="${syukkoForm}" class="ui form syukko-order-form">
 				<table class="ui celled table">
 					<thead>
 						<tr>
-							<th class="width">入庫日</th>
+							<th class="width">出庫日</th>
 							<th class="width">商品コード/商品名/カラー/サイズ/カテゴリ名/メーカー/値段</th>
-							<th class="width">入庫数</th>
+							<th class="width">在庫数</th>
+							<th class="width">出庫数</th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr th:each="nyuuko : ${nyuuko}">
+						<tr th:each="syukko : ${syukko}">
 							<td>
 								<div class="ui calendar" id="date_calendar">
+									<input type="hidden" name="productId"
+										th:value="${syukko.productId}">
 									<div class="ui input left icon">
-										<input type="hidden" name="productId"
-											th:value="${nyuuko.productId}"> <i
-											class="calendar icon"></i> <input type="text"
-											name="nyuukoDate" placeholder="yyyy/mm/dd" />
+										<i class="calendar icon"></i> <input type="text"
+											name="syukkoDate" placeholder="yyyy/mm/dd" />
 									</div>
 								</div>
 							</td>
-							<td th:text="${nyuuko.productAllInfo}"></td>
-							<td><input class="ui input" type="text" name="quantiry"
-								value="0" /></td>
+							<td th:text="${syukko.productAllInfo}"></td>
+							<td th:text="${syukko.inventoryCount}"></td>
+							<td><input class="ui input" type="text"
+								name="quantity" value="0" /></td>
 						</tr>
 					</tbody>
 				</table>
 			</form>
 			<div class="button">
-				<button class="ui button red order_system_nyuuko" data-mode="order"
-					tabindex="0">入庫</button>
+				<button class="ui button blue order_system_syukko" data-mode="order"
+					tabindex="0">出庫</button>
 				<a class="ui button" href="#"
 					onclick="history.back(); return false;">戻る</a>
 			</div>
 		</div>
 	</div>
 	<th:block
-		th:replace="components/nyuuko/nyuuko_check_modal :: components_nyuuko_check_modal">
+		th:replace="components/syukko/syukko_check_modal :: components_syukko_check_modal">
 	</th:block>
 </th:block>
 </html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div class="ui modal transition nyuuko-order-modal"
+	th:fragment="components_nyuuko_order_modal">
+	<i class="close icon"></i>
+	<div class="header">入庫</div>
+	<div class="content">
+		<form method="post" th:action="@{/system/nyuuko/order}"
+			th:object="${nyuukoForm}" class="ui form nyuuko-order-form">
+			<input type="hidden" name="productId">
+			<table class="ui celled table">
+				<thead>
+					<tr>
+						<th class="width">入庫日</th>
+						<th class="width">カテゴリ/商品名/色</th>
+						<th class="width">入庫数</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td data-label="">
+							<div class="ui calendar" id="date_calendar">
+								<div class="ui input left icon">
+									<i class="calendar icon"></i> <input type="text"
+										name="nyuukoDate" placeholder="yyyy/mm/dd" />
+								</div>
+							</div>
+						</td>
+						<td><input type=text name="nyuuko" /></td>
+						<td><input type="text" name="quantity" value="0"
+							id="quantity" /></td>
+					</tr>
+				</tbody>
+			</table>
+		</form>
+	</div>
+	<div class="actions">
+		<div class="ui positive right labeled icon button nyuuko-order-ok-btn">OK</div>
+		<div class="ui cancel button">キャンセル</div>
+	</div>
+</div>
+</html>

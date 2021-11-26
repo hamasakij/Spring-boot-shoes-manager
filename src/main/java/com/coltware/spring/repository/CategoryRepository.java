@@ -6,7 +6,10 @@ import org.springframework.stereotype.Repository;
 
 import com.coltware.spring.model.Category;
 
+/**
+ * カテゴリ レポジトリ
+ */
 @Repository
-public interface CategoryRepository extends JpaRepository<Category, Long>, JpaSpecificationExecutor<Category>{
+public interface CategoryRepository extends JpaRepository<Category, Long>, JpaSpecificationExecutor<Category> {
 
 }

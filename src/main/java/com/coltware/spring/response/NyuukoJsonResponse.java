@@ -1,32 +1,29 @@
-package com.coltware.spring.form;
+package com.coltware.spring.response;
 
 import java.util.Date;
-
-import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Data;
 
 @Data
-public class NyuukoForm {
+public class NyuukoJsonResponse extends JsonResponse{
 
 	/**
-	 * 入庫Id
+	 * 入庫id
 	 */
 	private Long id;
-
+	
 	/**
-	 * 商品Id
+	 * 商品id
 	 */
 	private Long productId;
-
+	
 	/**
 	 * 入庫数
 	 */
 	private Long quantity;
-
+	
 	/**
 	 * 入庫日
 	 */
-	@DateTimeFormat(pattern = "yyyy/MM/dd")
 	private Date nyuukoDate;
 }

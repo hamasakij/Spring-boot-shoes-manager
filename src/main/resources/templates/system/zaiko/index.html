@@ -19,7 +19,7 @@
 						<label>カテゴリ</label>
 						<div class="ui icon input">
 							<select class="ui search dropdown" th:field="*{categoryId}">
-							<option value="">選択されていません</option>
+								<option value="">選択されていません</option>
 								<option th:each="category : ${categorys}"
 									th:value="${category.categoryId}"
 									th:text="${category.categoryName}"></option>
@@ -30,8 +30,8 @@
 					<div class="second">
 						<label>メーカー</label>
 						<div class="ui icon input">
-							<select class="ui search dropdown" >
-							<option value="">選択されていません</option>
+							<select class="ui search dropdown" th:field="*{makerId}">
+								<option value="">選択されていません</option>
 								<option th:each="maker : ${makers}" th:value="${maker.makerId}"
 									th:text="${maker.makerName}"></option>
 							</select>
@@ -43,8 +43,8 @@
 					<div class="first">
 						<label>カラー</label>
 						<div class="ui icon input">
-							<select class="ui search dropdown" >
-							<option value="">選択されていません</option>
+							<select class="ui search dropdown" th:field="*{colorId}">
+								<option value="">選択されていません</option>
 								<option th:each="color : ${colors}" th:value="${color.colorId}"
 									th:text="${color.colorName}"></option>
 							</select>
@@ -54,8 +54,8 @@
 					<div class="second">
 						<label>サイズ</label>
 						<div class="ui icon input">
-							<select class="ui search dropdown" >
-							<option value="">選択されていません</option>
+							<select class="ui search dropdown" th:field="*{sizeId}">
+								<option value="">選択されていません</option>
 								<option th:each="size : ${sizes}" th:value="${size.sizeId}"
 									th:text="${size.size}"></option>
 							</select>
@@ -67,14 +67,16 @@
 					<div class="first">
 						<label>商品コード</label>
 						<div class="ui input">
-							<input class="prompt" type="text" placeholder="商品コード..." />
+							<input class="prompt" type="text" placeholder="商品コード..."
+								th:field="*{productCode}" />
 						</div>
 					</div>
 					<!--商品名-->
 					<div class="second">
 						<label>商品名</label>
 						<div class="ui input">
-							<input class="prompt" type="text" placeholder="商品名..."  />
+							<input class="prompt" type="text" placeholder="商品名..."
+								th:field="*{productName}" />
 						</div>
 					</div>
 				</div>
@@ -83,10 +85,10 @@
 					<div class="first">
 						<label>金額</label>
 						<div class="ui right labeled input">
-							<input type="text" placeholder="金額"  />
+							<input type="text" placeholder="金額" th:field="*{minPrice}" />
 							<div class="ui basic label">円以上</div>
 							<div class="place">～</div>
-							<input type="text" placeholder="金額"/>
+							<input type="text" placeholder="金額" th:field="*{maxPrice}" />
 							<div class="ui basic label">円以下</div>
 						</div>
 					</div>
@@ -123,8 +125,10 @@
 						<td th:text="${zaiko.inventoryCount}"></td>
 
 						<td class="btn">
-							<button class="ui button blue new-entry" tabindex="0"
-								data-ol-has-click-handler="">出庫</button>
+							<button class="ui button blue order_syukko"
+								th:data-id="${zaiko.product.productId}"
+								th:data-name="${zaiko.zaikoInfo}"th:data-ic="${zaiko.inventoryCount}" data-mode="order"
+								tabindex="0">出庫</button>
 							<button class="ui inverted yellow button detail-entry"
 								th:data-id="${zaiko.product.productId}" tabindex="0">詳細</button>
 						</td>
@@ -133,5 +137,8 @@
 			</table>
 		</div>
 	</div>
+	<th:block
+		th:replace="components/syukko/syukko_order_modal :: components_syukko_order_modal">
+	</th:block>
 </th:block>
 </html>
