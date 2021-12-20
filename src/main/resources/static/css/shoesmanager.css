@@ -101,6 +101,20 @@ input.prompt {
 	margin-top:10px;
 }
 
+.ui.red.message.minPriceError {
+	margin-left: 150px;
+	padding:5px;
+	margin-top:10px;
+
+}
+
+.ui.red.message.maxPriceError {
+	margin-left: 150px;
+	padding:5px;
+	margin-top:10px;
+}
+
+
 .ui.red.message.nameError {
 	margin-left: 150px;
 	padding:5px;

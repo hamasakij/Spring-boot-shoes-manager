@@ -19,10 +19,17 @@ public interface SyukkoService {
 	public List<SyukkoDto> getInventory();
 
 	/**
+	 * 在庫からの出庫、出庫する個数を送る
+	 * @param syukkoForm
+	 * @return
+	 */
+	public Syukko doInsert(SyukkoForm syukkoForm);
+	
+	/**
 	 * 出庫する個数を送る
 	 * 
 	 * @param syukkoForm
 	 * @return
 	 */
-	public Syukko doInsert(SyukkoForm syukkoForm);
+	public List<Syukko> doInsert(List<SyukkoForm> syukkoForm);
 }

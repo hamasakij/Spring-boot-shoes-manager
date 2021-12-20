@@ -40,17 +40,12 @@ public class ZaikoServiceImpl implements ZaikoService {
 		Long maxPrice = zaikoSearchForm.getMaxPrice();
 		String productName = zaikoSearchForm.getProductName();
 		Boolean deleted = zaikoSearchForm.getDeleted();
-		
+
 		List<Zaiko> list = zaikoRepository.findAll(Specification.where(categoryIdContains(categoryId))
-																.and(makerIdContains(makerId))
-																.and(colorIdContains(colorId))
-																.and(sizeIdContains(sizeId))
-																.and(codeContains(productCode))
-																.and(minPriceContains(minPrice))
-																.and(maxPriceContains(maxPrice))
-																.and(nameContains(productName))
-																.and(deletedContains(deleted))
-		);
+				.and(makerIdContains(makerId)).and(colorIdContains(colorId)).and(sizeIdContains(sizeId))
+				.and(codeContains(productCode)).and(minPriceContains(minPrice)).and(maxPriceContains(maxPrice))
+				.and(nameContains(productName)).and(deletedContains(deleted)));
+		
 		List<ZaikoDto> resultList = new ArrayList<ZaikoDto>();
 		for (Zaiko zaiko : list) {
 			ZaikoDto dto = new ZaikoDto();

@@ -1,13 +1,12 @@
 package com.coltware.spring.controller;
 
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,6 +25,8 @@ import com.coltware.spring.service.SyukkoService;
 @Controller
 @RequestMapping("/system")
 public class SyukkoController {
+
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	/**
 	 * 出庫 サービスクラス
@@ -49,34 +50,37 @@ public class SyukkoController {
 		return mav;
 	}
 
-	@PostMapping("/syukko/{productId}/check")
+	@PostMapping("/syukko/check")
 	@ResponseBody
-	public SyukkoJsonResponse insert(@Validated(GroupOrder.class) @RequestBody SyukkoForm syukkoForm,
+	public SyukkoJsonResponse insert(@Validated(GroupOrder.class) @RequestBody List<SyukkoForm> syukkoForm,
 			BindingResult errorResult) {
-
-		
+		logger.debug("取得{}", syukkoForm);
 		SyukkoJsonResponse syukkoJsonResponse = new SyukkoJsonResponse();
-		syukkoJsonResponse.setQuantity(syukkoForm.getQuantity());
-
+	
 		
 
-		if (errorResult.hasErrors()) {
-			Map<String, String> errors = errorResult.getFieldErrors().stream()
-					.collect(Collectors.toMap(FieldError::getField, FieldError::getDefaultMessage));
-			syukkoJsonResponse.setSuccess(false);
-			syukkoJsonResponse.setMessage("入力エラーがあります");
-			syukkoJsonResponse.setErrors(errors);
+		
+		
+//		if (errorResult.hasErrors()) {
+//			Map<String, String> errors = errorResult.getFieldErrors().stream()
+//					.collect(Collectors.toMap(FieldError::getField, FieldError::getDefaultMessage));
+//			syukkoJsonResponse.setSuccess(false);
+//			syukkoJsonResponse.setMessage("入力エラーがあります");
+//			syukkoJsonResponse.setErrors(errors);
+//
+//			return syukkoJsonResponse;
+//		}
 
-			return syukkoJsonResponse;
-		}
-
-		Syukko syukko = syukkoService.doInsert(syukkoForm);
+		List<Syukko> syukko = syukkoService.doInsert(syukkoForm);
+		logger.debug("syukkoの内容{}",syukkoForm);
 		if (syukko == null) {
 			throw new RuntimeException("新規作成に失敗しました");
 		} else {
 			syukkoJsonResponse.setSuccess(true);
 			syukkoJsonResponse.setMessage("新規作成に成功しました");
 		}
+
+		logger.debug("取得{}", syukko);
 
 		return syukkoJsonResponse;
 	}

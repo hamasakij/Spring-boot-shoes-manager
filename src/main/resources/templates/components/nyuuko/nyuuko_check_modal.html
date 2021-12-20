@@ -4,7 +4,7 @@
 	th:fragment="components_nyuuko_check_modal">
 	<div class="header">確認画面</div>
 	<div class="content">
-		<form method="post" th:action="@{/system/nyuuko/{productId}/check}"
+		<form method="post" th:action="@{/system/nyuuko/check}"
 			th:object="${nyuukoForm}" class="ui form nyuuko-check-form">
 			<input type="hidden" name="productId">
 			<input type="hidden" name="nyuukoDate">

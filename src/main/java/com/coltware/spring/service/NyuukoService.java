@@ -24,5 +24,5 @@ public interface NyuukoService {
 	 * @param nyuukoForm
 	 * @return
 	 */
-	public Nyuuko doInsert(NyuukoForm nyuukoForm);
+	public List<Nyuuko> doInsert(List<NyuukoForm> nyuukoForm);
 }

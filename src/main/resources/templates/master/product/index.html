@@ -12,16 +12,21 @@
 		<div class="ui segment">
 			<form id="user-search-form" th:action="@{/master/product}"
 				class="form-inline" th:object="${productSearchForm}">
+				<div class="ui error message"
+					th:style="${#fields.hasErrors()} ? 'display:block' : ''">
+					<i class="close icon"></i>
+					<div class="header">入力エラーがあります。</div>
+				</div>
 				<!--カテゴリ-->
 				<div class="field">
 					<div class="first">
 						<label>カテゴリ</label>
 						<div class="ui icon input">
 							<select class="ui search dropdown" th:field="*{categoryId}">
-							<option value="">選択されていません</option>
-								<option th:each="category : ${categorys}"
-									th:value="${category.categoryId}"
-									th:text="${category.categoryName}"></option>
+								<option value="">選択されていません</option>
+								<option th:each="categorys : ${categorys}"
+									th:value="${categorys.categoryId}"
+									th:text="${categorys.categoryName}"></option>
 							</select>
 						</div>
 					</div>
@@ -30,9 +35,9 @@
 						<label>メーカー</label>
 						<div class="ui icon input">
 							<select class="ui search dropdown" th:field="*{makerId}">
-							<option value="">選択されていません</option>
-								<option th:each="maker : ${makers}" th:value="${maker.makerId}"
-									th:text="${maker.makerName}"></option>
+								<option value="">選択されていません</option>
+								<option th:each="makers : ${makers}" th:value="${makers.makerId}"
+									th:text="${makers.makerName}"></option>
 							</select>
 						</div>
 					</div>
@@ -43,7 +48,7 @@
 						<label>カラー</label>
 						<div class="ui icon input">
 							<select class="ui search dropdown" th:field="*{colorId}">
-							<option value="">選択されていません</option>
+								<option value="">選択されていません</option>
 								<option th:each="color : ${colors}" th:value="${color.colorId}"
 									th:text="${color.colorName}"></option>
 							</select>
@@ -54,7 +59,7 @@
 						<label>サイズ</label>
 						<div class="ui icon input">
 							<select class="ui search dropdown" th:field="*{sizeId}">
-							<option value="">選択されていません</option>
+								<option value="">選択されていません</option>
 								<option th:each="size : ${sizes}" th:value="${size.sizeId}"
 									th:text="${size.size}"></option>
 							</select>
@@ -66,15 +71,25 @@
 					<div class="first">
 						<label>商品コード</label>
 						<div class="ui input">
-							<input class="prompt" type="text" placeholder="商品コード..." th:field="*{productCode}"/>
+							<input class="prompt" type="text" placeholder="商品コード..."
+								th:field="*{productCode}" />
 						</div>
+						<div class=" ui red message codeError"
+							th:if="
+						${#fields.hasErrors('productCode')}"
+							th:errors="*{productCode}" th:errorclass="err"></div>
+
 					</div>
 					<!--商品名-->
 					<div class="second">
 						<label>商品名</label>
 						<div class="ui input">
-							<input class="prompt" type="text" placeholder="商品名..." th:field="*{productName}" />
+							<input class="prompt" type="text" placeholder="商品名..."
+								th:field="*{productName}" />
 						</div>
+						<div class="ui red message nameError"
+							th:if="${#fields.hasErrors('productName')}"
+							th:errors="*{productName}" th:errorclass="err"></div>
 					</div>
 				</div>
 				<!--値段-->
@@ -85,9 +100,15 @@
 							<input type="text" placeholder="金額" th:field="*{minPrice}" />
 							<div class="ui basic label">円以上</div>
 							<div class="place">～</div>
-							<input type="text" placeholder="金額" th:field="*{maxPrice}"/>
+							<input type="text" placeholder="金額" th:field="*{maxPrice}" />
 							<div class="ui basic label">円以下</div>
 						</div>
+						<div class="ui red message minPriceError"
+							th:if="${#fields.hasErrors('minPrice')}" th:errors="*{minPrice}"
+							th:errorclass="err"></div>
+						<div class="ui red message maxPriceError"
+							th:if="${#fields.hasErrors('maxPrice')}" th:errors="*{maxPrice}"
+							th:errorclass="err"></div>
 					</div>
 				</div>
 				<div class="btn">
@@ -99,8 +120,7 @@
 		<h3>商品一覧</h3>
 		<div class="ui segment">
 			<div class="btn">
-				<button class="ui button green new-entry" tabindex="0"
-					>新規登録</button>
+				<button class="ui button green new-entry" tabindex="0">新規登録</button>
 			</div>
 			<table class="ui celled table">
 				<thead>
@@ -116,7 +136,7 @@
 				<tbody>
 					<tr th:each="product : ${products}">
 						<td th:text="${product.productInfo}"></td>
-						<td th:text="${product.category.categoryName}"></td>
+						<td th:text="${product.categoryName}"></td>
 						<td th:text="${product.maker.makerName}"></td>
 						<td th:text="${product.price}"></td>
 						<td th:text="${product.remarks}"></td>

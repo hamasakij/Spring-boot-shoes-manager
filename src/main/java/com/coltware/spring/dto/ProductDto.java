@@ -7,7 +7,6 @@ import com.coltware.spring.model.Color;
 import com.coltware.spring.model.Maker;
 import com.coltware.spring.model.Product;
 import com.coltware.spring.model.Size;
-import com.coltware.spring.model.Zaiko;
 
 import lombok.Data;
 
@@ -81,9 +80,19 @@ public class ProductDto {
 	private Category category;
 
 	/**
+	 * カテゴリ名
+	 */
+	private String categoryName;
+
+	/**
 	 * メーカー
 	 */
 	private Maker maker;
+
+	/**
+	 * メーカー名
+	 */
+	private String makerName;
 
 	/**
 	 * カラー
@@ -96,22 +105,40 @@ public class ProductDto {
 	private Size size;
 
 	/**
-	 * 在庫
-	 */
-	private Zaiko zaiko;
-
-	/**
-	 * 商品
-	 */
-	private Product product;
-
-	/**
 	 * 商品ID/商品Code/商品名/color/sizeの形式で表示
 	 */
 	private StringBuffer productInfo;
 
 	/**
+	 * カテゴリ名の
+	 * @param product
+	 */
+	public void setCategoryName(Product product) {
+		String name = null;
+
+		if (product.getCategory() == null) {
+			name = "未設定";
+		} else {
+			name = product.getCategory().getCategoryName();
+		}
+		 this.categoryName = name;
+	}
+
+	
+	public void setMakerName(Product product) {
+		String name = null;
+
+		if (product.getMaker() == null) {
+			name = "未設定";
+		} else {
+			name = product.getMaker().getMakerName();
+		}
+		 this.makerName = name;
+	}
+	
+	/**
 	 * productInfoのsetter
+	 * 
 	 * @param product
 	 */
 	public void setProductInfo(Product product) {

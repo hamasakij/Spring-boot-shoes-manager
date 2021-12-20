@@ -12,6 +12,7 @@ import com.coltware.spring.model.Product;
  */
 public interface ProductService {
 
+	
 	/**
 	 * 商品の一覧条件付きで表示
 	 * 

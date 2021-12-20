@@ -37,7 +37,7 @@
 				</div>
 			</form>
 			<!-- 一覧表示 -->
-			<form method="post" th:action="@{/system/nyuuko/{productId}/check}"
+			<form method="post" th:action="@{/system/nyuuko/check}"
 				th:object="${nyuukoForm}" class="ui form nyuuko-order-form">
 				<table class="ui celled table">
 					<thead>
@@ -51,17 +51,17 @@
 						<tr th:each="nyuuko : ${nyuuko}">
 							<td>
 								<div class="ui calendar" id="date_calendar">
+									<input type="hidden" name="productId"
+										th:value="${nyuuko.productId}">
 									<div class="ui input left icon">
-										<input type="hidden" name="productId"
-											th:value="${nyuuko.productId}"> <i
-											class="calendar icon"></i> <input type="text"
-											name="nyuukoDate" placeholder="yyyy/mm/dd" />
+										<i class="calendar icon"></i> <input type="text"
+											name="nyuukoDate" placeholder="yyyy/mm/dd" value="" />
 									</div>
 								</div>
 							</td>
 							<td th:text="${nyuuko.productAllInfo}"></td>
-							<td><input class="ui input" type="text" name="quantiry"
-								value="0" /></td>
+							<td><input class="ui input" type="text"
+								 name="quantity" value="0" /></td>
 						</tr>
 					</tbody>
 				</table>

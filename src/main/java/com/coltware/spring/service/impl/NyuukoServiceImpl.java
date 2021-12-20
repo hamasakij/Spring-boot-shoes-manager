@@ -3,6 +3,8 @@ package com.coltware.spring.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,9 +22,10 @@ import com.coltware.spring.service.NyuukoService;
 @Transactional
 public class NyuukoServiceImpl implements NyuukoService {
 
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Autowired
 	private ProductRepository productRepository;
-	
+
 	@Autowired
 	private NyuukoRepository nyuukoRepository;
 
@@ -37,7 +40,7 @@ public class NyuukoServiceImpl implements NyuukoService {
 
 		for (Product product : list) {
 			NyuukoDto dto = new NyuukoDto();
-			
+
 			BeanUtils.copyProperties(product, dto);
 			dto.setProductAllInfo(product);
 			resultList.add(dto);
@@ -49,13 +52,18 @@ public class NyuukoServiceImpl implements NyuukoService {
 	 * 入庫処理
 	 */
 	@Override
-	public Nyuuko doInsert(NyuukoForm nyuukoForm) {
-		Nyuuko nyuuko = new Nyuuko();
-		//同じプロパティ同士のコピー
-		BeanUtils.copyProperties(nyuuko, nyuukoForm);
-		return nyuukoRepository.save(nyuuko);
+	public List<Nyuuko> doInsert(List<NyuukoForm> nyuukoFormList) {
+		List<Nyuuko> resultList = new ArrayList<Nyuuko>();
+
+		for (NyuukoForm form : nyuukoFormList) {
+			Nyuuko nyuuko = new Nyuuko();
+			BeanUtils.copyProperties(form, nyuuko);
+		}
+
+		logger.debug("取得{}",nyuukoFormList);
+		logger.debug("取得{}",resultList);
+		
+		return nyuukoRepository.saveAll(resultList);
 	}
-	
-	
 
 }

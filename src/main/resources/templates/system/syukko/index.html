@@ -37,7 +37,7 @@
 				</div>
 			</form>
 			<!-- 一覧表示 -->
-			<form method="post" th:action="@{/system/syukko/{productId}/check}"
+			<form method="post" th:action="@{/system/syukko/check}"
 				th:object="${syukkoForm}" class="ui form syukko-order-form">
 				<table class="ui celled table">
 					<thead>
@@ -48,22 +48,22 @@
 							<th class="width">出庫数</th>
 						</tr>
 					</thead>
-					<tbody>
-						<tr th:each="syukko : ${syukko}">
+					<tbody th:each="syukko, stat: ${syukko}">
+						<tr th:value="${stat.index}">
 							<td>
 								<div class="ui calendar" id="date_calendar">
 									<input type="hidden" name="productId"
 										th:value="${syukko.productId}">
 									<div class="ui input left icon">
 										<i class="calendar icon"></i> <input type="text"
-											name="syukkoDate" placeholder="yyyy/mm/dd" />
+											name="syukkoDate" placeholder="yyyy/mm/dd" value="" />
 									</div>
 								</div>
 							</td>
 							<td th:text="${syukko.productAllInfo}"></td>
 							<td th:text="${syukko.inventoryCount}"></td>
 							<td><input class="ui input" type="text"
-								name="quantity" value="0" /></td>
+								 name="quantity" value="0" /></td>
 						</tr>
 					</tbody>
 				</table>

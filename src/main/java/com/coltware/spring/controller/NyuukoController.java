@@ -1,13 +1,12 @@
 package com.coltware.spring.controller;
 
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,6 +26,8 @@ import com.coltware.spring.service.NyuukoService;
 @RequestMapping("/system")
 public class NyuukoController {
 
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
+	
 	/**
 	 * 入庫 サービスクラス
 	 */
@@ -57,34 +58,35 @@ public class NyuukoController {
 //		mav.setViewName("redirect:/system/zaiko");
 //		return mav;
 //	}
-	@PostMapping("/nyuuko/{productId}/check")
+	@PostMapping("/nyuuko/check")
 	@ResponseBody
-	public NyuukoJsonResponse insert(@Validated(GroupOrder.class) @RequestBody NyuukoForm nyuukoForm,
+	public NyuukoJsonResponse insert(@Validated(GroupOrder.class) @RequestBody List<NyuukoForm> nyuukoForm,
 			BindingResult errorResult) {
 
 		
 		NyuukoJsonResponse nyuukoJsonResponse = new NyuukoJsonResponse();
-		nyuukoJsonResponse.setQuantity(nyuukoForm.getQuantity());
+		
 
 		
 
-		if (errorResult.hasErrors()) {
-			Map<String, String> errors = errorResult.getFieldErrors().stream()
-					.collect(Collectors.toMap(FieldError::getField, FieldError::getDefaultMessage));
-			nyuukoJsonResponse.setSuccess(false);
-			nyuukoJsonResponse.setMessage("入力エラーがあります");
-			nyuukoJsonResponse.setErrors(errors);
+//		if (errorResult.hasErrors()) {
+//			Map<String, String> errors = errorResult.getFieldErrors().stream()
+//					.collect(Collectors.toMap(FieldError::getField, FieldError::getDefaultMessage));
+//			nyuukoJsonResponse.setSuccess(false);
+//			nyuukoJsonResponse.setMessage("入力エラーがあります");
+//			nyuukoJsonResponse.setErrors(errors);
+//
+//			return nyuukoJsonResponse;
+//		}
 
-			return nyuukoJsonResponse;
-		}
-
-		Nyuuko nyuuko = nyuukoService.doInsert(nyuukoForm);
+		List<Nyuuko> nyuuko = nyuukoService.doInsert(nyuukoForm);
 		if (nyuuko == null) {
 			throw new RuntimeException("新規作成に失敗しました");
 		} else {
 			nyuukoJsonResponse.setSuccess(true);
 			nyuukoJsonResponse.setMessage("新規作成に成功しました");
 		}
+		logger.debug("取得{}",nyuuko);
 
 		return nyuukoJsonResponse;
 	}

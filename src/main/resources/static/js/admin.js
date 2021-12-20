@@ -499,9 +499,7 @@ $(function() {
 			mode = data.mode,
 			id = data.id,
 			name = data.name;
-		ic = data.ic;
-		item = data.item;
-		quantitys = data.quantitys;
+
 
 
 		$('.modal.syukko-check-modal')
@@ -512,20 +510,20 @@ $(function() {
 						$form = $el.find('form.syukko-order-form'),
 						$id = $el.find('input[name=productId]'),
 						$name = $el.find('input[name=syukko]'),
-						$ic = $el.find('input[name=inventoryCount]'),
-						
 
 
-					$method = $el.find('input[name=_method]');
+
+
+						$method = $el.find('input[name=_method]');
 
 					if (mode === 'order') {
-						$form.attr('action', '/system/syukko/' + id + '/check/');
+						$form.attr('action', '/system/syukko/check/');
 						$method.val('PUT');
 						$id.val(id);
 					}
 
 					$name.val(name);
-					$ic.val(ic);
+
 
 
 				},
@@ -545,23 +543,37 @@ $(function() {
 			data = {},
 			action,
 			formData;
+		console.log(formData);
+		var syukkoFormList = [];
+
 
 
 		action = $form.attr('action');
 		// フォームのデータを取得
 		formData = $form.serializeArray();
 		console.log(formData);
-		// [{id="11"},{name: "名前"}] みたいな形を
-		// {id="11", name: "名前"} に変換
-		$(formData).each(function(index, obj) {
-			data[obj.name] = obj.value;
+		//		// [{id="11"},{name: "名前"}] みたいな形を
+		//		// {id="11", name: "名前"} に変換
+		//		$(formData).each(function(index, obj) {
 
-			if (obj.name == "syukkoDate") {
-				data[obj.name] = new Date(obj.value);
-			}
+		productId = $("input[type=hidden][name=productId]");
 
-		});
-		console.log(data);
+
+		for (var i = 0; i < productId.length; i++) {
+
+			quantity = $("input[type=text][name=quantity]");
+			syukkoDate = $("input[type=text][name=syukkoDate]");
+
+
+
+			var a = { productId: productId[i].value, quantity: quantity[i].value, syukkoDate: new Date(syukkoDate[i].value) };
+
+			syukkoFormList.push(a);
+
+		};
+
+		console.log(syukkoFormList);
+
 		// ajax
 		$.ajax({
 			type: 'post',
@@ -569,8 +581,10 @@ $(function() {
 			dataType: 'json',
 			contentType: "application/json; charset=utf-8",
 			cache: false,
-			data: JSON.stringify(data)
+			data: JSON.stringify(syukkoFormList)
+
 		})
+
 			.done(function(res) {
 				console.log("処理ができました");
 				console.log(res);
@@ -654,7 +668,7 @@ $(function() {
 						$method = $el.find('input[name=_method]');
 
 					if (mode === 'order') {
-						$form.attr('action', '/system/nyuuko/' + id + '/check/');
+						$form.attr('action', '/system/nyuuko/check/');
 						$method.val('PUT');
 						$id.val(id);
 					}
@@ -679,23 +693,32 @@ $(function() {
 			data = {},
 			action,
 			formData;
+			var nyuukoFormList = [];
 
 
 		action = $form.attr('action');
 		// フォームのデータを取得
 		formData = $form.serializeArray();
-		console.log(formData);
-		// [{id="11"},{name: "名前"}] みたいな形を
-		// {id="11", name: "名前"} に変換
-		$(formData).each(function(index, obj) {
-			data[obj.name] = obj.value;
+		productId = $("input[type=hidden][name=productId]");
 
-			if (obj.name == "nyuukoDate") {
-				data[obj.name] = new Date(obj.value);
-			}
 
-		});
-		console.log(data);
+		for (var i = 0; i < productId.length; i++) {
+
+			quantity = $("input[type=text][name=quantity]");
+			nyuukoDate = $("input[type=text][name=nyuukoDate]");
+
+		console.log(quantity);
+		console.log(nyuukoDate);
+
+			var b = { productId: productId[i].value, quantity: quantity[i].value };
+
+			nyuukoFormList.push(b);
+
+		};
+		console.log(quantity);
+		console.log(nyuukoDate);
+
+		console.log(nyuukoFormList);
 		// ajax
 		$.ajax({
 			type: 'post',
@@ -703,7 +726,7 @@ $(function() {
 			dataType: 'json',
 			contentType: "application/json; charset=utf-8",
 			cache: false,
-			data: JSON.stringify(data)
+			data: JSON.stringify(nyuukoFormList)
 		})
 			.done(function(res) {
 				console.log("処理ができました");

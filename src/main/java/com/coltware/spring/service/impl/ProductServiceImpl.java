@@ -24,18 +24,16 @@ import com.coltware.spring.service.ProductService;
 @Transactional
 public class ProductServiceImpl implements ProductService {
 
-	 private final Logger logger = LoggerFactory.getLogger(this.getClass());
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Autowired
 	private ProductRepository productRepository;
 
-	
-	
 	/**
 	 * 商品一覧取得 IDや名前などをリストにし、1つにまとめる カテゴリなどID表示のものを名前で表示する
 	 */
 	@Override
 	public List<ProductDto> getProducts(ProductSearchForm productSearchForm) {
-		//検索条件
+		// 検索条件
 		Long categoryId = productSearchForm.getCategoryId();
 		Long makerId = productSearchForm.getMakerId();
 		Long colorId = productSearchForm.getColorId();
@@ -45,27 +43,23 @@ public class ProductServiceImpl implements ProductService {
 		Long minPrice = productSearchForm.getMinPrice();
 		Long maxPrice = productSearchForm.getMaxPrice();
 		Boolean deleted = productSearchForm.getDeleted();
-		
+
 		// productRepositoty.findAllで取得した情報をdtoにコピーする
 		List<Product> list = productRepository.findAll(Specification.where(categoryIdContains(categoryId))
-																	.and(makerIdContains(makerId))
-																	.and(colorIdContains(colorId))
-																	.and(sizeIdContains(sizeId))
-																	.and(codeContains(productCode))
-																	.and(nameContains(productName))
-																	.and(minPriceContains(minPrice))
-																	.and(maxPriceContains(maxPrice))
-																	.and(deletedContains(deleted))
-																	);
+				.and(makerIdContains(makerId)).and(colorIdContains(colorId)).and(sizeIdContains(sizeId))
+				.and(codeContains(productCode)).and(nameContains(productName)).and(minPriceContains(minPrice))
+				.and(maxPriceContains(maxPrice)).and(deletedContains(deleted)));
 
 		List<ProductDto> resultList = new ArrayList<ProductDto>();
 		for (Product product : list) {
 			ProductDto dto = new ProductDto();
 			BeanUtils.copyProperties(product, dto);
 			dto.setProductInfo(product);
+			dto.setCategoryName(product);
+			dto.setMakerName(product);
+			
 			
 			resultList.add(dto);
-			
 		}
 
 		return resultList;
@@ -100,6 +94,7 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public Product detailUpdate(ProductForm productForm) {
 		Product product = new Product();
+		product.setDeleted(false);
 		// 同じプロパティをコピー
 		BeanUtils.copyProperties(productForm, product);
 		return productRepository.save(product);
@@ -109,7 +104,7 @@ public class ProductServiceImpl implements ProductService {
 	 * idをキーに商品を削除
 	 */
 	@Override
-	public Product deleteProduct(Long productId ) {
+	public Product deleteProduct(Long productId) {
 
 		Product product = productRepository.getById(productId);
 		product.setDeleted(true);

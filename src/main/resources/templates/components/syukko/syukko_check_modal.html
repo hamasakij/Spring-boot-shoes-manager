@@ -4,24 +4,15 @@
 	th:fragment="components_syukko_check_modal">
 	<div class="header">確認画面</div>
 	<div class="content">
-		<form method="post" th:action="@{/system/syukko/check}"
-			th:object="${syukkoForm}" class="ui form syukko-check-form">
-			<input type="hidden" name="productId">
-			<input type="hidden" name="syukkoDate">
-			<input type="hidden" name="quantity">
-			<div class="field">
-				<label class="label-name">出庫してよろしいでしょうか？</label>
-				
-			</div>
-		</form>
+		<label class="label-name">出庫してよろしいでしょうか？</label>
 	</div>
 	<div class="actions">
 		<div class="ui negative button">キャンセル</div>
-		<div
-			class="ui positive right labeled icon button syukko-check-ok-btn"
+		<div class="ui positive right labeled icon button syukko-check-ok-btn"
 			tabindex="0">
 			OK <i class="checkmark icon"></i>
 		</div>
 	</div>
 </div>
 </html>
+
